@@ -98,6 +98,32 @@
                 iframe.msRequestFullscreen();
             }
         }
+
+        // Smooth Scroll for Internal Links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Responsive Iframe Resizing
+        window.addEventListener('resize', resizeIframe);
+        function resizeIframe() {
+            const iframe = document.getElementById('game-iframe');
+            iframe.style.height = `${window.innerHeight * 0.6}px`;
+        }
+        resizeIframe(); // Call once to set the initial size
+
+        // Feedback on Button Clicks
+        const buttons = document.querySelectorAll('button');
+        buttons.forEach(button => {
+            button.addEventListener('click', () => {
+                alert("Button clicked: " + button.innerText);
+            });
+        });
     </script>
     <!-- Rest of the HTML content -->
 </body>
