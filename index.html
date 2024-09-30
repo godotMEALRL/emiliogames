@@ -31,8 +31,14 @@
     <p>More is on its way; there should be more here in 1-2 months. For now, check out our current projects.</p>
     
     <h1>This is our <span style="color: green">linktree</span> to Websites!</h1>
-    
-    <a href="https://github.com/godotMEALRL" target="_blank" rel="noopener">
+  
+    buttons.forEach(button => {
+      button.addEventListener('click', () => {
+          alert("Button clicked: " + button.innerText);
+      });
+  });
+ 
+  <a href="https://github.com/godotMEALRL" target="_blank" rel="noopener">
     <button>Our Github Page</button>
     </a>
    
