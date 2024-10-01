@@ -87,52 +87,44 @@
         <p>&copy; 2024 Fictus Game Development Studio. All rights reserved.</p>
     </footer>
     <script>
-        // Load Google Ads script
+    // Load Google Ads script
     const script = document.createElement('script');
     script.async = true;
     script.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6633824635928275";
     script.crossOrigin = "anonymous";
     document.head.appendChild(script);
 
+    let isMuted = false;
+
     function toggleFullscreen() {
         const iframe = document.getElementById('game-iframe');
         if (iframe.requestFullscreen) {
             iframe.requestFullscreen();
-        } else if (iframe.mozRequestFullScreen) { // Firefox
+        } else if (iframe.mozRequestFullScreen) {
             iframe.mozRequestFullScreen();
-        } else if (iframe.webkitRequestFullscreen) { // Chrome, Safari and Opera
+        } else if (iframe.webkitRequestFullscreen) {
             iframe.webkitRequestFullscreen();
-        } else if (iframe.msRequestFullscreen) { // IE/Edge
+        } else if (iframe.msRequestFullscreen) {
             iframe.msRequestFullscreen();
         }
     }
 
-    // Smooth Scroll for Internal Links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            document.querySelector(this.getAttribute('href')).scrollIntoView({
-                behavior: 'smooth'
-            });
-        });
-    });
-
-    // Responsive Iframe Resizing
-    window.addEventListener('resize', resizeIframe);
-    function resizeIframe() {
+    function toggleMute() {
         const iframe = document.getElementById('game-iframe');
-        iframe.style.height = `${window.innerHeight * 0.6}px`;
-    }
-    resizeIframe(); // Call once to set the initial size
+        const muteButton = document.querySelector('.mute-button');
 
-    // Feedback on Button Clicks
-    const buttons = document.querySelectorAll('button');
-    buttons.forEach(button => {
-        button.addEventListener('click', () => {
-            alert("Button clicked: " + button.innerText);
-        });
-    });
-  </script>
+        isMuted = !isMuted;
+        if (isMuted) {
+            iframe.contentWindow.postMessage({ action: 'mute' }, '*');
+            muteButton.innerText = "Unmute";
+        } else {
+            iframe.contentWindow.postMessage({ action: 'unmute' }, '*');
+            muteButton.innerText = "Mute";
+        }
+    }
+
+    // Other existing functions...
+    </script>
 
     <!-- Rest of the HTML content -->
 </body>
