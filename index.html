@@ -69,6 +69,44 @@
             muteButton.innerText = "Mute";
         }
     }
+        let gameState = {
+            level: 1,
+            score: 0,
+            playerPosition: { x: 0, y: 0 },
+            // Add more game-specific state as needed
+        };
+
+        // Function to save the game state
+        function saveGameState() {
+            localStorage.setItem('gameState', JSON.stringify(gameState));
+            alert('Game state saved!');
+            // Notify parent if needed
+            window.parent.postMessage({ action: 'gameSaved' }, '*');
+        }
+
+        // Function to load the game state
+        function loadGameState() {
+            const savedState = localStorage.getItem('gameState');
+            if (savedState) {
+                gameState = JSON.parse(savedState);
+                // Restore the game state logic, e.g., update UI, positions, etc.
+                console.log('Game state loaded:', gameState);
+                // Example of restoring a score
+                // document.getElementById('scoreDisplay').innerText = gameState.score;
+            } else {
+                console.log('No saved game state found.');
+            }
+        }
+
+        // Function to simulate gameplay (for demonstration)
+        function playGame() {
+            // Simulate game progress
+            gameState.score += 10; // Increase score as an example
+            console.log('Playing game, current score:', gameState.score);
+        }
+
+        // Call loadGameState on page load to restore state if available
+        window.onload = loadGameState;
 
     // Other existing functions...
     </script>
