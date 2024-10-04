@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EmilioGames</title>
+    <title>EmilioGames - Login System</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -17,12 +17,16 @@
             height: 100%;
             border: none; /* Removes the border */
         }
+        #login-container {
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
     <h1>This is the <span style="color: #008000;">Emilio</span> game Website.</h1>
-
-    <p id="greeting">Welcome!</p> <!-- Add a greeting element here -->
+    <div id="login-container">
+        <p id="greeting">Welcome, Guest!</p> <!-- Greeting message -->
+    </div>
 
     <p>New update</p>
     <b>The Games should save now!!!</b>
@@ -77,32 +81,45 @@
             }
         }
 
-        // Function to ask for user's name
-        function askForName() {
-            let name = localStorage.getItem('userName');
-            if (!name) {
-                name = prompt("What is your name?");
-                if (name) {
-                    localStorage.setItem('userName', name);
-                } else {
-                    name = "Guest"; // Default to 'Guest' if no name is provided
-                }
+        // Function to handle user login
+        function askForUsername() {
+            let savedUsername = localStorage.getItem('username');
+            let currentUsername = prompt("Please enter your username:");
+
+            if (!currentUsername) {
+                alert("Username cannot be empty! Please refresh the page and try again.");
+                return;
             }
-            document.getElementById("greeting").innerText = "Hello, " + name + "!";
+
+            if (savedUsername) {
+                if (savedUsername === currentUsername) {
+                    // User is logging in with the same username
+                    document.getElementById("greeting").innerText = `Welcome back, ${savedUsername}!`;
+                } else {
+                    // Different username
+                    let confirmSwitch = confirm(`Username '${currentUsername}' isn't recognized. Would you like to log in as ${currentUsername}?`);
+                    if (confirmSwitch) {
+                        localStorage.setItem('username', currentUsername);
+                        document.getElementById("greeting").innerText = `Welcome, ${currentUsername}!`;
+                    } else {
+                        alert("Please refresh and enter your correct username.");
+                    }
+                }
+            } else {
+                // First time visiting, new username
+                localStorage.setItem('username', currentUsername);
+                document.getElementById("greeting").innerText = `Welcome, ${currentUsername}!`;
+            }
         }
 
-        // Call askForName on page load
-        window.onload = function() {
-            askForName();
-            loadGameState(); // Also load game state when the page loads
-        };
+        // Call askForUsername on page load
+        window.onload = askForUsername;
 
-        // Your game state management below...
+        // Game state management (same as before)
         let gameState = {
             level: 1,
             score: 0,
             playerPosition: { x: 0, y: 0 },
-            // Add more game-specific state as needed
         };
 
         function saveGameState() {
@@ -121,9 +138,8 @@
             }
         }
 
-        // Simulate gameplay function
         function playGame() {
-            gameState.score += 10; // Example of what gameplay might do
+            gameState.score += 10; // Simulate game scoring
             console.log('Playing game, current score:', gameState.score);
         }
     </script>
