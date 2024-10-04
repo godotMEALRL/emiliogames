@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EmilioGames - Login System</title>
+    <title>EmilioGames</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -17,45 +17,12 @@
             height: 100%;
             border: none; /* Removes the border */
         }
-        #login-container {
-            margin-bottom: 20px;
-        }
-        .chat-container {
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-            max-width: 600px;
-            margin: 20px auto;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            padding: 10px;
-        }
-        .messages {
-            flex-grow: 1;
-            overflow-y: auto;
-            max-height: 300px;
-            margin-bottom: 10px;
-            border: 1px solid #ddd;
-            padding: 10px;
-        }
-        .message {
-            margin-bottom: 5px;
-        }
-        .message strong {
-            color: #008000;
-        }
-        .messages input,
-        .messages button {
-            width: 100%;
-            padding: 8px;
-        }
     </style>
 </head>
 <body>
     <h1>This is the <span style="color: #008000;">Emilio</span> game Website.</h1>
-    <div id="login-container">
-        <p id="greeting">Welcome, Guest!</p> <!-- Greeting message -->
-    </div>
+
+    <p id="greeting">Welcome!</p> <!-- Add a greeting element here -->
 
     <p>New update</p>
     <b>The Games should save now!!!</b>
@@ -71,14 +38,6 @@
         <iframe id="game-iframe" src="https://qasgg2.netlify.app/" title="QASgg2"></iframe>
         <button class="fullscreen-button" onclick="toggleFullscreen()">Fullscreen</button>
         <button class="mute-button" onclick="toggleMute()">Mute</button>
-    </div>
-
-    <div class="chat-container" id="chat-container">
-        <h2>Chat Room</h2>
-        <div class="messages" id="messages"></div>
-        <input id="name" type="text" placeholder="Your name" required />
-        <input id="message" type="text" placeholder="Type your message..." required />
-        <button id="send">Send</button>
     </div>
 
     <script>
@@ -118,42 +77,32 @@
             }
         }
 
-        // Function to handle user login
-        function askForUsername() {
-            let savedUsername = localStorage.getItem('username');
-            let currentUsername = prompt("Please enter your username:");
-
-            if (!currentUsername) {
-                alert("Username cannot be empty! Please refresh the page and try again.");
-                return;
-            }
-
-            if (savedUsername) {
-                if (savedUsername === currentUsername) {
-                    document.getElementById("greeting").innerText = `Welcome back, ${savedUsername}!`;
+        // Function to ask for user's name
+        function askForName() {
+            let name = localStorage.getItem('userName');
+            if (!name) {
+                name = prompt("What is your name?");
+                if (name) {
+                    localStorage.setItem('userName', name);
                 } else {
-                    let confirmSwitch = confirm(`Username '${currentUsername}' isn't recognized. Would you like to log in as ${currentUsername}?`);
-                    if (confirmSwitch) {
-                        localStorage.setItem('username', currentUsername);
-                        document.getElementById("greeting").innerText = `Welcome, ${currentUsername}!`;
-                    } else {
-                        alert("Please refresh and enter your correct username.");
-                    }
+                    name = "Guest"; // Default to 'Guest' if no name is provided
                 }
-            } else {
-                localStorage.setItem('username', currentUsername);
-                document.getElementById("greeting").innerText = `Welcome, ${currentUsername}!`;
             }
+            document.getElementById("greeting").innerText = "Hello, " + name + "!";
         }
 
-        // Call askForUsername on page load
-        window.onload = askForUsername;
+        // Call askForName on page load
+        window.onload = function() {
+            askForName();
+            loadGameState(); // Also load game state when the page loads
+        };
 
-        // Game state management (same as before)
+        // Your game state management below...
         let gameState = {
             level: 1,
             score: 0,
             playerPosition: { x: 0, y: 0 },
+            // Add more game-specific state as needed
         };
 
         function saveGameState() {
@@ -172,53 +121,11 @@
             }
         }
 
+        // Simulate gameplay function
         function playGame() {
-            gameState.score += 10; // Simulate game scoring
+            gameState.score += 10; // Example of what gameplay might do
             console.log('Playing game, current score:', gameState.score);
         }
-
-        // Firebase JS SDK
-        const firebaseConfig = {
-            apiKey: "AIzaSyC1EsGAri7JvJuP2dfon0u_RN4A9hHeJOI"",
-            authDomain: "emiliogames-79bbb.firebaseapp.com",
-            databaseURL: "https://emiliogames-79bbb-default-rtdb.firebaseio.com/",
-            projectId: "emiliogames-79bbb",
-            storageBucket: "emiliogames-79bbb.appspot.com",
-            messagingSenderId: "149816591377",
-            appId: "1:149816591377:web:d9273a689934e2e6cc1db0"
-        };
-
-        // Initialize Firebase
-        const app = firebase.initializeApp(firebaseConfig);
-        const database = firebase.database();
-
-        const messagesDiv = document.getElementById('messages');
-        const messageInput = document.getElementById('message');
-        const nameInput = document.getElementById('name');
-
-        // Send message to Firebase
-        document.getElementById('send').onclick = () => {
-            const message = messageInput.value;
-            const name = nameInput.value;
-            if (message && name) {
-                database.ref('messages/').push({
-                    name: name,
-                    message: message,
-                    timestamp: Date.now()
-                });
-                messageInput.value = ''; // Clear input
-            }
-        };
-
-        // Listen for new messages
-        database.ref('messages/').on('child_added', (snapshot) => {
-            const data = snapshot.val();
-            const messageElement = document.createElement('div');
-            messageElement.classList.add('message');
-            messageElement.innerHTML = `<strong>${data.name}:</strong> ${data.message}`;
-            messagesDiv.appendChild(messageElement);
-            messagesDiv.scrollTop = messagesDiv.scrollHeight; // Scroll to the bottom
-        });
     </script>
 
     <h1>This is our <span style="color: green">linktree</span> to Websites!</h1>
@@ -234,7 +141,6 @@
         <li>Emilio Mejias</li>
         <li>Melio Mayhas</li>
     </ul>
-    
     <section>
         <h3>V.I.P.</h3>
         <ul>
@@ -242,9 +148,9 @@
             <li>Dave Stebe</li>
             <li>Thomas the Train🍩!</li>
         </ul>
-    </section>
-
     <footer>
         <p>&copy; 2024 Fictus Game Development Studio. All rights reserved.</p>
     </footer>
+    </section>
 </body>
+</html>
