@@ -20,6 +20,35 @@
         #login-container {
             margin-bottom: 20px;
         }
+        .chat-container {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+        }
+        .messages {
+            flex-grow: 1;
+            overflow-y: auto;
+            max-height: 300px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            padding: 10px;
+        }
+        .message {
+            margin-bottom: 5px;
+        }
+        .message strong {
+            color: #008000;
+        }
+        .messages input,
+        .messages button {
+            width: 100%;
+            padding: 8px;
+        }
     </style>
 </head>
 <body>
@@ -42,6 +71,14 @@
         <iframe id="game-iframe" src="https://qasgg2.netlify.app/" title="QASgg2"></iframe>
         <button class="fullscreen-button" onclick="toggleFullscreen()">Fullscreen</button>
         <button class="mute-button" onclick="toggleMute()">Mute</button>
+    </div>
+
+    <div class="chat-container" id="chat-container">
+        <h2>Chat Room</h2>
+        <div class="messages" id="messages"></div>
+        <input id="name" type="text" placeholder="Your name" required />
+        <input id="message" type="text" placeholder="Type your message..." required />
+        <button id="send">Send</button>
     </div>
 
     <script>
@@ -93,10 +130,8 @@
 
             if (savedUsername) {
                 if (savedUsername === currentUsername) {
-                    // User is logging in with the same username
                     document.getElementById("greeting").innerText = `Welcome back, ${savedUsername}!`;
                 } else {
-                    // Different username
                     let confirmSwitch = confirm(`Username '${currentUsername}' isn't recognized. Would you like to log in as ${currentUsername}?`);
                     if (confirmSwitch) {
                         localStorage.setItem('username', currentUsername);
@@ -106,7 +141,6 @@
                     }
                 }
             } else {
-                // First time visiting, new username
                 localStorage.setItem('username', currentUsername);
                 document.getElementById("greeting").innerText = `Welcome, ${currentUsername}!`;
             }
@@ -142,6 +176,49 @@
             gameState.score += 10; // Simulate game scoring
             console.log('Playing game, current score:', gameState.score);
         }
+
+        // Firebase JS SDK
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_AUTH_DOMAIN",
+            databaseURL: "YOUR_DATABASE_URL",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_STORAGE_BUCKET",
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+
+        // Initialize Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+
+        const messagesDiv = document.getElementById('messages');
+        const messageInput = document.getElementById('message');
+        const nameInput = document.getElementById('name');
+
+        // Send message to Firebase
+        document.getElementById('send').onclick = () => {
+            const message = messageInput.value;
+            const name = nameInput.value;
+            if (message && name) {
+                database.ref('messages/').push({
+                    name: name,
+                    message: message,
+                    timestamp: Date.now()
+                });
+                messageInput.value = ''; // Clear input
+            }
+        };
+
+        // Listen for new messages
+        database.ref('messages/').on('child_added', (snapshot) => {
+            const data = snapshot.val();
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('message');
+            messageElement.innerHTML = `<strong>${data.name}:</strong> ${data.message}`;
+            messagesDiv.appendChild(messageElement);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight; // Scroll to the bottom
+        });
     </script>
 
     <h1>This is our <span style="color: green">linktree</span> to Websites!</h1>
@@ -157,6 +234,7 @@
         <li>Emilio Mejias</li>
         <li>Melio Mayhas</li>
     </ul>
+    
     <section>
         <h3>V.I.P.</h3>
         <ul>
@@ -164,9 +242,9 @@
             <li>Dave Stebe</li>
             <li>Thomas the Train🍩!</li>
         </ul>
+    </section>
+
     <footer>
         <p>&copy; 2024 Fictus Game Development Studio. All rights reserved.</p>
     </footer>
-    </section>
 </body>
-</html>
