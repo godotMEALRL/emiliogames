@@ -1,95 +1,103 @@
-  <meta charset="UTF-8">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EmilioGames</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-          .iframe-container {
-        width: 75%; /* Adjust as needed */
-        height: 650px; /* Set your desired height */
-    }
-    #game-iframe {
-        width: 100%;
-        height: 100%;
-        border: none; /* Removes the border */
-    }
+        }
+        .iframe-container {
+            width: 75%; /* Adjust as needed */
+            height: 650px; /* Set your desired height */
+        }
+        #game-iframe {
+            width: 100%;
+            height: 100%;
+            border: none; /* Removes the border */
+        }
     </style>
 </head>
 <body>
     <h1>This is the <span style="color: #008000;">Emilio</span> game Website.</h1>
 
+    <p id="greeting">Welcome!</p> <!-- Add a greeting element here -->
+
     <p>New update</p>
     <b>The Games should save now!!!</b>
     <p>Version Beta 1.12</p>
-    <p> </p>
-  
-    <p> </p>
-    <p> </p>
-    <p> </p>
-  
-    <p> </p>
-    <p> </p>
-    <p> </p>
-  
+
     <b>Blacklisted</b>
     <p>Ryker Lavin</p>
     <p>Katie Haberberger</p>
     <p>Matthew Rushing</p>
-  
-    <p> </p>
-    <p> </p>
-    <p> </p>
-  
-    </section>
+
     <h1>QASGG2</h1>
-  <p> </p>
     <div class="iframe-container">
-      <p> </p>
         <iframe id="game-iframe" src="https://qasgg2.netlify.app/" title="QASgg2"></iframe>
-        <p> </p>
-        <p> </p>
-        <p> </p>
         <button class="fullscreen-button" onclick="toggleFullscreen()">Fullscreen</button>
         <button class="mute-button" onclick="toggleMute()">Mute</button>
-        <p> </p>
-        <p> </p>
-        <p> </p>
+    </div>
+
     <script>
-    // Load Google Ads script
-    const script = document.createElement('script');
-    script.async = true;
-    script.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6633824635928275";
-    script.crossOrigin = "anonymous";
-    document.head.appendChild(script);
+        // Load Google Ads script
+        const script = document.createElement('script');
+        script.async = true;
+        script.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6633824635928275";
+        script.crossOrigin = "anonymous";
+        document.head.appendChild(script);
 
-    let isMuted = false;
+        let isMuted = false;
 
-    function toggleFullscreen() {
-        const iframe = document.getElementById('game-iframe');
-        if (iframe.requestFullscreen) {
-            iframe.requestFullscreen();
-        } else if (iframe.mozRequestFullScreen) {
-            iframe.mozRequestFullScreen();
-        } else if (iframe.webkitRequestFullscreen) {
-            iframe.webkitRequestFullscreen();
-        } else if (iframe.msRequestFullscreen) {
-            iframe.msRequestFullscreen();
+        function toggleFullscreen() {
+            const iframe = document.getElementById('game-iframe');
+            if (iframe.requestFullscreen) {
+                iframe.requestFullscreen();
+            } else if (iframe.mozRequestFullScreen) {
+                iframe.mozRequestFullScreen();
+            } else if (iframe.webkitRequestFullscreen) {
+                iframe.webkitRequestFullscreen();
+            } else if (iframe.msRequestFullscreen) {
+                iframe.msRequestFullscreen();
+            }
         }
-    }
 
-    function toggleMute() {
-        const iframe = document.getElementById('game-iframe');
-        const muteButton = document.querySelector('.mute-button');
+        function toggleMute() {
+            const iframe = document.getElementById('game-iframe');
+            const muteButton = document.querySelector('.mute-button');
 
-        isMuted = !isMuted;
-        if (isMuted) {
-            iframe.contentWindow.postMessage({ action: 'mute' }, '*');
-            muteButton.innerText = "Unmute";
-        } else {
-            iframe.contentWindow.postMessage({ action: 'unmute' }, '*');
-            muteButton.innerText = "Mute";
+            isMuted = !isMuted;
+            if (isMuted) {
+                iframe.contentWindow.postMessage({ action: 'mute' }, '*');
+                muteButton.innerText = "Unmute";
+            } else {
+                iframe.contentWindow.postMessage({ action: 'unmute' }, '*');
+                muteButton.innerText = "Mute";
+            }
         }
-    }
+
+        // Function to ask for user's name
+        function askForName() {
+            let name = localStorage.getItem('userName');
+            if (!name) {
+                name = prompt("What is your name?");
+                if (name) {
+                    localStorage.setItem('userName', name);
+                } else {
+                    name = "Guest"; // Default to 'Guest' if no name is provided
+                }
+            }
+            document.getElementById("greeting").innerText = "Hello, " + name + "!";
+        }
+
+        // Call askForName on page load
+        window.onload = function() {
+            askForName();
+            loadGameState(); // Also load game state when the page loads
+        };
+
+        // Your game state management below...
         let gameState = {
             level: 1,
             score: 0,
@@ -97,73 +105,37 @@
             // Add more game-specific state as needed
         };
 
-        // Function to save the game state
         function saveGameState() {
             localStorage.setItem('gameState', JSON.stringify(gameState));
             alert('Game state saved!');
-            // Notify parent if needed
             window.parent.postMessage({ action: 'gameSaved' }, '*');
         }
 
-        // Function to load the game state
         function loadGameState() {
             const savedState = localStorage.getItem('gameState');
             if (savedState) {
                 gameState = JSON.parse(savedState);
-                // Restore the game state logic, e.g., update UI, positions, etc.
                 console.log('Game state loaded:', gameState);
-                // Example of restoring a score
-                // document.getElementById('scoreDisplay').innerText = gameState.score;
             } else {
                 console.log('No saved game state found.');
             }
         }
 
-        // Function to simulate gameplay (for demonstration)
+        // Simulate gameplay function
         function playGame() {
-            // Simulate game progress
-            gameState.score += 10; // Increase score as an example
+            gameState.score += 10; // Example of what gameplay might do
             console.log('Playing game, current score:', gameState.score);
         }
-
-        // Call loadGameState on page load to restore state if available
-        window.onload = loadGameState;
-
-    // Other existing functions...
     </script>
+
     <h1>This is our <span style="color: green">linktree</span> to Websites!</h1>
 
- 
-    <a href="https://github.com/godotMEALRL" target="_blank" rel="noopener">
-    <button>Our Github Page</button>
-      </a>
-   
-    <p> </p>
-   
-    <a href="https://html-web-js.netlify.app/" target="_blank" rel="noopener">
-    <button>Our Game</button>
-     </a>
-  
-    <p> </p>
-   
-    <a href="https://qasstl.wixsite.com/1234" target="_blank" rel="noopener">
-    <button>Playgames2024</button>
-    </a>
-   
-    <p> </p>
-  
-    <a href="https://monkeygg2.github.io" target="_blank" rel="noopener">
-    <button>MonkeyGG2 Games</button>
-    </a>
- 
-    <p> </p>
-  
-    <a href="http://yixboost.nl.eu.org/yixboost/" target="_blank" rel="noopener">
-    <button>Yixboost Games</button>
-    </a>
-   
-    <p> </p>
-  
+    <a href="https://github.com/godotMEALRL" target="_blank" rel="noopener"><button>Our Github Page</button></a>
+    <a href="https://html-web-js.netlify.app/" target="_blank" rel="noopener"><button>Our Game</button></a>
+    <a href="https://qasstl.wixsite.com/1234" target="_blank" rel="noopener"><button>Playgames2024</button></a>
+    <a href="https://monkeygg2.github.io" target="_blank" rel="noopener"><button>MonkeyGG2 Games</button></a>
+    <a href="http://yixboost.nl.eu.org/yixboost/" target="_blank" rel="noopener"><button>Yixboost Games</button></a>
+
     <p><strong>Our Team</strong></p>
     <ul>
         <li>Emilio Mejias</li>
@@ -177,14 +149,8 @@
             <li>Thomas the Train🍩!</li>
         </ul>
     <footer>
-        <p> </p>
-        <p> </p>
-        <p> </p>
         <p>&copy; 2024 Fictus Game Development Studio. All rights reserved.</p>
-        <p> </p>
-        <p> </p>
-        <p> </p>
     </footer>
-    <!-- Rest of the HTML content -->
+    </section>
 </body>
 </html>
