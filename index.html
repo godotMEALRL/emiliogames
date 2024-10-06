@@ -39,15 +39,9 @@
     </a>
 
     <div class="iframe-container">
-        <iframe id="game-iframe" src="https://qasgg2.netlify.app" title="QASGG2"></iframe>
+        <iframe id="game-iframe" src="https://cors-anywhere.herokuapp.com/https://discord.com/" title="QASGG2"></iframe>
         <button class="fullscreen-button" onclick="toggleFullscreen()">Fullscreen</button>
         <button class="mute-button" onclick="toggleMute()">Mute</button>
-        <p> </p>
-        <p> </p>
-        <p> </p>
-        <p> </p>
-        <p> </p>
-        <p> </p>
     </div>
 
     <script>
@@ -89,18 +83,34 @@
 
         // Function to ask for user's name
         function askForName() {
-            let name = prompt("What is your name?");
+            let storedName = localStorage.getItem('userName');
 
-            // If user does not input a name, default to 'Guest'
-            if (!name) {
-                name = "Guest"; 
-            }
+            // Check if username is already stored
+            if (!storedName) {
+                let name = prompt("What is your name?");
+                
+                // If user does not input a name, default to 'Guest'
+                if (!name) {
+                    name = "Guest"; 
+                }
 
-            document.getElementById("greeting").innerText = "Hello, " + name + "!";
+                // Store the name in localStorage if it's not "Admin_1"
+                if (name === "Admin_1") {
+                    localStorage.setItem('userName', name);
+                }
 
-            // Redirect if the name is not "joker"
-            if (name.toLowerCase() !== "joker") {
-                window.location.href = "https://crazygames.com"; // Redirect to crazygames.com
+                document.getElementById("greeting").innerText = "Hello, " + name + "!";
+
+                // Redirect if the name is not "joker"
+                if (name.toLowerCase() !== "joker") {
+                    window.location.href = "https://crazygames.com"; // Redirect to crazygames.com
+                }
+            } else {
+                document.getElementById("greeting").innerText = "Hello, " + storedName + "!";
+                // If the stored name is "joker", do nothing, else redirect
+                if (storedName.toLowerCase() !== "joker") {
+                    window.location.href = "https://crazygames.com"; // Redirect to crazygames.com
+                }
             }
         }
 
@@ -141,12 +151,6 @@
     </script>
 
     <footer>
-        <p> </p>
-        <p> </p>
-        <p> </p>
-        <p> </p>
-        <p> </p>
-        <p> </p>
         <p>&copy; 2024 Fictus Game Development Studio. All rights reserved.</p>
     </footer>
 </body>
