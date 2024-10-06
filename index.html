@@ -7,15 +7,54 @@
     <style>
         body {
             font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h1, h2 {
+            color: #333;
         }
         .iframe-container {
-            width: 75%; /* Adjust as needed */
-            height: 650px; /* Set your desired height */
+            width: 75%;
+            height: 650px;
+            margin-bottom: 20px;
         }
         #game-iframe, #form-iframe {
             width: 100%;
             height: 100%;
-            border: none; /* Removes the border */
+            border: none;
+        }
+        #chat {
+            margin-top: 20px;
+            background: white;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        #messages {
+            height: 300px;
+            overflow-y: scroll;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            padding: 5px;
+            border-radius: 5px;
+        }
+        #message-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        #send-button {
+            padding: 10px;
+            background: #008CBA;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #send-button:hover {
+            background: #005f6b;
         }
     </style>
 </head>
@@ -46,6 +85,13 @@
 
     <div class="iframe-container">
         <iframe id="form-iframe" src="https://docs.google.com/forms/d/e/1FAIpQLSc7IXM7_pEu3nVBYwJOkf46UfuiZhKcpVEXC7cZyHaTlCWajw/viewform?embedded=true" loading="lazy">Loading…</iframe>
+    </div>
+
+    <div id="chat">
+        <h2>Chat Room</h2>
+        <div id="messages"></div>
+        <input type="text" id="message-input" placeholder="Type your message here...">
+        <button id="send-button" onclick="sendMessage()">Send</button>
     </div>
 
     <script>
@@ -105,6 +151,7 @@
         window.onload = function() {
             askForName();
             loadGameState();
+            loadMessages();
         };
 
         // Game state management
@@ -129,27 +176,55 @@
                 console.log('No saved game state found.');
             }
         }
-    </script>
 
-    <!-- Firebase Initialization -->
-    <script type="module">
-      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-app.js";
-      import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-analytics.js";
+        // Firebase initialization
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-app.js";
+        import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-database.js";
 
-      const firebaseConfig = {
-        apiKey: "AIzaSyC1EsGAri7JvJuP2dfon0u_RN4A9hHeJOI",
-        authDomain: "emiliogames-79bbb.firebaseapp.com",
-        databaseURL: "https://emiliogames-79bbb-default-rtdb.firebaseio.com",
-        projectId: "emiliogames-79bbb",
-        storageBucket: "emiliogames-79bbb.appspot.com",
-        messagingSenderId: "149816591377",
-        appId: "1:149816591377:web:d9273a689934e2e6cc1db0",
-        measurementId: "G-BZ1138M2DH"
-      };
+        const firebaseConfig = {
+            apiKey: "AIzaSyC1EsGAri7JvJuP2dfon0u_RN4A9hHeJOI",
+            authDomain: "emiliogames-79bbb.firebaseapp.com",
+            databaseURL: "https://emiliogames-79bbb-default-rtdb.firebaseio.com",
+            projectId: "emiliogames-79bbb",
+            storageBucket: "emiliogames-79bbb.appspot.com",
+            messagingSenderId: "149816591377",
+            appId: "1:149816591377:web:d9273a689934e2e6cc1db0",
+            measurementId: "G-BZ1138M2DH"
+        };
 
-      // Initialize Firebase
-      const app = initializeApp(firebaseConfig);
-      const analytics = getAnalytics(app);
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+
+        function sendMessage() {
+            const input = document.getElementById('message-input');
+            const message = input.value.trim();
+            if (message) {
+                const userName = localStorage.getItem('userName') || "Guest";
+                const messageData = {
+                    user: userName,
+                    text: message,
+                    timestamp: Date.now()
+                };
+                const messagesRef = ref(database, 'messages/' + Date.now());
+                set(messagesRef, messageData);
+                input.value = '';
+            }
+        }
+
+        function loadMessages() {
+            const messagesRef = ref(database, 'messages/');
+            onValue(messagesRef, (snapshot) => {
+                const messagesDiv = document.getElementById('messages');
+                messagesDiv.innerHTML = ''; // Clear existing messages
+                snapshot.forEach((childSnapshot) => {
+                    const message = childSnapshot.val();
+                    const messageElement = document.createElement('div');
+                    messageElement.textContent = `${message.user}: ${message.text}`;
+                    messagesDiv.appendChild(messageElement);
+                });
+                messagesDiv.scrollTop = messagesDiv.scrollHeight; // Scroll to the bottom
+            });
+        }
     </script>
 
     <footer>
