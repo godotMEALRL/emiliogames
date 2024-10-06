@@ -18,28 +18,6 @@
             border: none; /* Removes the border */
         }
     </style>
-    <!-- Firebase SDK -->
-    <script type="module">
-        // Import the functions you need from the SDKs you need
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-app.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-analytics.js";
-
-        // Your web app's Firebase configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyC1EsGAri7JvJuP2dfon0u_RN4A9hHeJOI",
-            authDomain: "emiliogames-79bbb.firebaseapp.com",
-            databaseURL: "https://emiliogames-79bbb-default-rtdb.firebaseio.com",
-            projectId: "emiliogames-79bbb",
-            storageBucket: "emiliogames-79bbb.appspot.com",
-            messagingSenderId: "149816591377",
-            appId: "1:149816591377:web:d9273a689934e2e6cc1db0",
-            measurementId: "G-BZ1138M2DH"
-        };
-
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const analytics = getAnalytics(app);
-    </script>
 </head>
 <body>
     <h1>This is the <span style="color: #008000;">Emilio</span> game Website.</h1>
@@ -110,7 +88,6 @@
             // Check if username is already stored
             if (!storedName) {
                 let name = prompt("What is your name?");
-
                 // If user does not input a name, default to 'Guest'
                 if (!name) {
                     name = "Guest"; 
@@ -139,6 +116,7 @@
         // Call askForName on page load
         window.onload = function() {
             askForName();
+            loadGameState();
             loadGameState(); // Also load game state when the page loads
         };
 
@@ -146,41 +124,32 @@
         let gameState = {
             level: 1,
             score: 0,
-            playerPosition: { x: 0, y: 0 },
-        };
-
-        function saveGameState() {
-            localStorage.setItem('gameState', JSON.stringify(gameState));
-            alert('Game state saved!');
-            window.parent.postMessage({ action: 'gameSaved' }, '*');
-        }
-
-        function loadGameState() {
-            const savedState = localStorage.getItem('gameState');
-            if (savedState) {
-                gameState = JSON.parse(savedState);
-                console.log('Game state loaded:', gameState);
-            } else {
-                console.log('No saved game state found.');
+@@ -134,28 +143,15 @@
             }
         }
 
         // Simulate gameplay function
         function playGame() {
+            gameState.score += 10;
             gameState.score += 10; // Example of what gameplay might do
             console.log('Playing game, current score:', gameState.score);
         }
     </script>
 
+    <!--Start of Tawk.to Script-->
+    <script type="text/javascript">
+        var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+        (function(){
+            var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+            s1.async=true;
+            s1.src='https://embed.tawk.to/6702df9137379df10df2ff13/1i9hjik0d';
+            s1.charset='UTF-8';
+            s1.setAttribute('crossorigin','*');
+            s0.parentNode.insertBefore(s1,s0);
+        })();
+    </script>
+    <!--End of Tawk.to Script-->
     <footer>
-        <p> </p>
-        <p> </p>
-        <p> </p>
-        <p> </p>
-        <p> </p>
-        <p> </p>
-        <p> </p>
-        <p> </p>
         <p>&copy; 2024 Fictus Game Development Studio. All rights reserved.</p>
     </footer>
 </body>
