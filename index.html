@@ -81,46 +81,37 @@
             }
         }
 
-        // Function to ask for user's name
         function askForName() {
             let storedName = localStorage.getItem('userName');
 
-            // Check if username is already stored
             if (!storedName) {
                 let name = prompt("What is your name?");
-                
-                // If user does not input a name, default to 'Guest'
                 if (!name) {
                     name = "Guest"; 
                 }
 
-                // Store the name in localStorage if it's not "Admin_1"
                 if (name === "Admin_1") {
                     localStorage.setItem('userName', name);
                 }
 
                 document.getElementById("greeting").innerText = "Hello, " + name + "!";
 
-                // Redirect if the name is not "joker"
                 if (name.toLowerCase() !== "joker") {
                     window.location.href = "https://crazygames.com"; // Redirect to crazygames.com
                 }
             } else {
                 document.getElementById("greeting").innerText = "Hello, " + storedName + "!";
-                // If the stored name is "joker", do nothing, else redirect
                 if (storedName.toLowerCase() !== "joker") {
                     window.location.href = "https://crazygames.com"; // Redirect to crazygames.com
                 }
             }
         }
 
-        // Call askForName on page load
         window.onload = function() {
             askForName();
-            loadGameState(); // Also load game state when the page loads
+            loadGameState();
         };
 
-        // Your game state management below...
         let gameState = {
             level: 1,
             score: 0,
@@ -143,12 +134,25 @@
             }
         }
 
-        // Simulate gameplay function
         function playGame() {
-            gameState.score += 10; // Example of what gameplay might do
+            gameState.score += 10;
             console.log('Playing game, current score:', gameState.score);
         }
     </script>
+
+    <!--Start of Tawk.to Script-->
+    <script type="text/javascript">
+        var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+        (function(){
+            var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+            s1.async=true;
+            s1.src='https://embed.tawk.to/6702df9137379df10df2ff13/1i9hjik0d';
+            s1.charset='UTF-8';
+            s1.setAttribute('crossorigin','*');
+            s0.parentNode.insertBefore(s1,s0);
+        })();
+    </script>
+    <!--End of Tawk.to Script-->
 
     <footer>
         <p>&copy; 2024 Fictus Game Development Studio. All rights reserved.</p>
