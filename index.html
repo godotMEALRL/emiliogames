@@ -7,54 +7,15 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #f4f4f4;
-        }
-        h1, h2 {
-            color: #333;
         }
         .iframe-container {
-            width: 75%;
-            height: 650px;
-            margin-bottom: 20px;
+            width: 75%; /* Adjust as needed */
+            height: 650px; /* Set your desired height */
         }
         #game-iframe, #form-iframe {
             width: 100%;
             height: 100%;
-            border: none;
-        }
-        #chat {
-            margin-top: 20px;
-            background: white;
-            padding: 10px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        #messages {
-            height: 300px;
-            overflow-y: scroll;
-            margin-bottom: 10px;
-            border: 1px solid #ddd;
-            padding: 5px;
-            border-radius: 5px;
-        }
-        #message-input {
-            width: 80%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-        #send-button {
-            padding: 10px;
-            background: #008CBA;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        #send-button:hover {
-            background: #005f6b;
+            border: none; /* Removes the border */
         }
     </style>
 </head>
@@ -84,44 +45,22 @@
     </div>
 
     <div class="iframe-container">
+        <iframe id="form-iframe" src="https://docs.google.com/forms/d/e/1FAIpQLSc7IXM7_pEu3nVBYwJOkf46UfuiZhKcpVEXC7cZyHaTlCWajw/viewform?embedded=true" width="700" height="520" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
         <iframe id="form-iframe" src="https://docs.google.com/forms/d/e/1FAIpQLSc7IXM7_pEu3nVBYwJOkf46UfuiZhKcpVEXC7cZyHaTlCWajw/viewform?embedded=true" loading="lazy">Loading…</iframe>
     </div>
 
-    <div id="chat">
-        <h2>Chat Room</h2>
-        <div id="messages"></div>
-        <input type="text" id="message-input" placeholder="Type your message here...">
-        <button id="send-button" onclick="sendMessage()">Send</button>
-    </div>
-
     <script>
-        // Load Google Ads script
-        const script = document.createElement('script');
-        script.async = true;
-        script.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6633824635928275";
-        script.crossOrigin = "anonymous";
-        document.head.appendChild(script);
-
-        let isMuted = false;
-
-        function toggleFullscreen() {
-            const iframe = document.getElementById('game-iframe');
-            if (iframe.requestFullscreen) {
-                iframe.requestFullscreen();
-            } else if (iframe.mozRequestFullScreen) {
-                iframe.mozRequestFullScreen();
-            } else if (iframe.webkitRequestFullscreen) {
-                iframe.webkitRequestFullscreen();
-            } else if (iframe.msRequestFullscreen) {
-                iframe.msRequestFullscreen();
-            }
-        }
-
-        function toggleMute() {
-            const iframe = document.getElementById('game-iframe');
+@@ -76,54 +76,38 @@
             const muteButton = document.querySelector('.mute-button');
 
             isMuted = !isMuted;
+            if (isMuted) {
+                iframe.contentWindow.postMessage({ action: 'mute' }, '*');
+                muteButton.innerText = "Unmute";
+            } else {
+                iframe.contentWindow.postMessage({ action: 'unmute' }, '*');
+                muteButton.innerText = "Mute";
+            }
             iframe.contentWindow.postMessage({ action: isMuted ? 'mute' : 'unmute' }, '*');
             muteButton.innerText = isMuted ? "Unmute" : "Mute";
         }
@@ -130,18 +69,29 @@
         function askForName() {
             let storedName = localStorage.getItem('userName');
 
+            // Check if username is already stored
             if (!storedName) {
+                let name = prompt("What is your name?");
+                // If user does not input a name, default to 'Guest'
+                if (!name) {
+                    name = "Guest"; 
+                }
+                // Store the name in localStorage if it's not "Admin_1"
                 let name = prompt("What is your name?") || "Guest";
                 if (name === "Admin_1") {
                     localStorage.setItem('userName', name);
                 }
                 document.getElementById("greeting").innerText = "Hello, " + name + "!";
+                // Redirect if the name is not "joker"
                 if (name.toLowerCase() !== "joker") {
+                    window.location.href = "https://crazygames.com"; // Redirect to crazygames.com
                     window.location.href = "https://crazygames.com"; 
                 }
             } else {
                 document.getElementById("greeting").innerText = "Hello, " + storedName + "!";
+                // If the stored name is "joker", do nothing, else redirect
                 if (storedName.toLowerCase() !== "joker") {
+                    window.location.href = "https://crazygames.com"; // Redirect to crazygames.com
                     window.location.href = "https://crazygames.com"; 
                 }
             }
@@ -150,85 +100,23 @@
         // Call askForName on page load
         window.onload = function() {
             askForName();
+            loadGameState(); // Also load game state when the page loads
             loadGameState();
-            loadMessages();
         };
 
+        // Your game state management below...
         // Game state management
         let gameState = {
             level: 1,
             score: 0,
-            playerPosition: { x: 0, y: 0 },
-        };
-
-        function saveGameState() {
-            localStorage.setItem('gameState', JSON.stringify(gameState));
-            alert('Game state saved!');
-            window.parent.postMessage({ action: 'gameSaved' }, '*');
-        }
-
-        function loadGameState() {
-            const savedState = localStorage.getItem('gameState');
-            if (savedState) {
-                gameState = JSON.parse(savedState);
-                console.log('Game state loaded:', gameState);
-            } else {
+@@ -145,39 +129,31 @@
                 console.log('No saved game state found.');
             }
         }
-
-        // Firebase initialization
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-app.js";
-        import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-database.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyC1EsGAri7JvJuP2dfon0u_RN4A9hHeJOI",
-            authDomain: "emiliogames-79bbb.firebaseapp.com",
-            databaseURL: "https://emiliogames-79bbb-default-rtdb.firebaseio.com",
-            projectId: "emiliogames-79bbb",
-            storageBucket: "emiliogames-79bbb.appspot.com",
-            messagingSenderId: "149816591377",
-            appId: "1:149816591377:web:d9273a689934e2e6cc1db0",
-            measurementId: "G-BZ1138M2DH"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const database = getDatabase(app);
-
-        function sendMessage() {
-            const input = document.getElementById('message-input');
-            const message = input.value.trim();
-            if (message) {
-                const userName = localStorage.getItem('userName') || "Guest";
-                const messageData = {
-                    user: userName,
-                    text: message,
-                    timestamp: Date.now()
-                };
-                const messagesRef = ref(database, 'messages/' + Date.now());
-                set(messagesRef, messageData)
-                    .then(() => {
-                        input.value = ''; // Clear input on successful send
-                    })
-                    .catch((error) => {
-                        console.error("Error sending message: ", error);
-                    });
-            }
-        }
-
-        function loadMessages() {
-            const messagesRef = ref(database, 'messages/');
-            onValue(messagesRef, (snapshot) => {
-                const messagesDiv = document.getElementById('messages');
-                messagesDiv.innerHTML = ''; // Clear existing messages
-                snapshot.forEach((childSnapshot) => {
-                    const message = childSnapshot.val();
-                    const messageElement = document.createElement('div');
-                    messageElement.textContent = `${message.user}: ${message.text}`;
-                    messagesDiv.appendChild(messageElement);
-                });
-                messagesDiv.scrollTop = messagesDiv.scrollHeight; // Scroll to the bottom
-            });
+        // Simulate gameplay function
+        function playGame() {
+            gameState.score += 10; // Example of what gameplay might do
+            console.log('Playing game, current score:', gameState.score);
         }
     </script>
 
