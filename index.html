@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EmilioGames</title>
+    <link rel="stylesheet" href="https://unpkg.com/stream-chat-react/dist/css/index.css" />
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -16,6 +17,45 @@
             width: 100%;
             height: 100%;
             border: none; /* Removes the border */
+        }
+        .chat-container {
+            max-width: 400px; /* Width of the chat container */
+            height: 500px; /* Height of the chat container */
+            border: 1px solid #ccc; /* Border for the chat */
+            margin: 20px auto; /* Center the chat */
+            display: flex;
+            flex-direction: column;
+        }
+        .chat-header {
+            background-color: #008000; /* Green background */
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+        .chat-messages {
+            flex-grow: 1; /* Take up available space */
+            overflow-y: auto; /* Scroll if content exceeds */
+            padding: 10px;
+            background: #f9f9f9; /* Light background for messages */
+        }
+        .chat-input {
+            display: flex; /* Flexbox for input and button */
+            padding: 10px;
+        }
+        .chat-input input {
+            flex-grow: 1; /* Input takes available space */
+            padding: 10px;
+            border: 1px solid #ccc; /* Border for input */
+        }
+        .chat-input button {
+            padding: 10px;
+            background-color: #008000; /* Green button */
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .chat-input button:hover {
+            background-color: #005700; /* Darker green on hover */
         }
     </style>
 </head>
@@ -48,34 +88,42 @@
         <iframe id="form-iframe" src="https://docs.google.com/forms/d/e/1FAIpQLSc7IXM7_pEu3nVBYwJOkf46UfuiZhKcpVEXC7cZyHaTlCWajw/viewform?embedded=true" width="700" height="520" frameborder="0" marginheight="0" marginwidth="0" loading="lazy">Loading…</iframe>
     </div>
 
+    <!-- Chat Container -->
+    <div class="chat-container">
+        <div class="chat-header">Chat Room</div>
+        <div class="chat-messages" id="chat-messages"></div>
+        <div class="chat-input">
+            <input type="text" id="chat-input" placeholder="Type your message..." />
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/stream-chat/dist/stream-chat.min.js"></script>
+    <script src="https://unpkg.com/stream-chat-react/dist/stream-chat-react.umd.min.js"></script>
     <script>
-        // Redirect to crazygames.com if the username is not valid
-        function redirectToCrazyGames() {
-            window.location.href = "https://crazygames.com";
-        }
+        // Instantiate your stream client using the API key and secret
+        const serverClient = StreamChat.getInstance('6hevtpzamvgu', 'ed8cy58taky8tju6jmmt7nd68zhfkxccjdwebq9qggdskyzyhbsq594xdpxn3gs6');
 
-        // Function to ask for user's name
-        function askForName() {
-            let storedName = localStorage.getItem('userName');
+        // Function to send a message
+        async function sendMessage() {
+            const messageInput = document.getElementById('chat-input');
+            const message = messageInput.value;
 
-            // Check if username is already stored
-            if (!storedName) {
-                let name = prompt("Enter your username (must be a number between 0 and 1000):");
-                
-                // If user doesn't input a valid name, redirect them
-                if (isNaN(name) || name < 0 || name > 1000) {
-                    redirectToCrazyGames();
-                } else {
-                    localStorage.setItem('userName', name);
-                    document.getElementById("greeting").innerText = "Hello, User " + name + "!";
-                }
-            } else {
-                // If the stored name is not valid, redirect
-                if (isNaN(storedName) || storedName < 0 || storedName > 1000) {
-                    redirectToCrazyGames();
-                } else {
-                    document.getElementById("greeting").innerText = "Hello, User " + storedName + "!";
-                }
+            if (message) {
+                const token = serverClient.createToken('john'); // Replace with the actual user ID
+                const channel = serverClient.channel('messaging', 'general', {
+                    name: 'General Chat',
+                });
+
+                await channel.create();
+                await channel.sendMessage({
+                    text: message,
+                });
+
+                // Display message in the chat messages div
+                const chatMessages = document.getElementById('chat-messages');
+                chatMessages.innerHTML += `<div>${message}</div>`;
+                messageInput.value = ''; // Clear the input
             }
         }
 
@@ -105,39 +153,22 @@
 
         // Call askForName on page load
         window.onload = function() {
-            askForName();
-            loadGameState(); // Also load game state when the page loads
-        };
+            let storedName = localStorage.getItem('userName');
 
-        // Game state management
-        let gameState = {
-            level: 1,
-            score: 0
-        };
-
-        // Function to save the game state to localStorage
-        function saveGameState() {
-            localStorage.setItem('gameState', JSON.stringify(gameState));
-            console.log('Game state saved:', gameState);
-        }
-
-        // Function to load the game state from localStorage
-        function loadGameState() {
-            let savedState = localStorage.getItem('gameState');
-            if (savedState) {
-                gameState = JSON.parse(savedState);
-                console.log('Loaded game state:', gameState);
-            } else {
-                console.log('No saved game state found.');
+            // Check if username is already stored
+            if (!storedName) {
+                let name = prompt("What is your name?");
+                // If user does not input a name, default to 'Guest'
+                if (!name) {
+                    name = "Guest"; 
+                }
+                // Store the name in localStorage
+                localStorage.setItem('userName', name);
             }
-        }
 
-        // Simulate gameplay function
-        function playGame() {
-            gameState.score += 10; // Example of what gameplay might do
-            console.log('Playing game, current score:', gameState.score);
-            saveGameState(); // Save game state after gameplay
-        }
+            // Greet the user
+            document.getElementById("greeting").innerText = "Hello, " + (storedName || name) + "!";
+        };
     </script>
 
     <footer>
