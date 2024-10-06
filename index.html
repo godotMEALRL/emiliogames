@@ -33,8 +33,10 @@
     <p>Matthew Rushing</p>
 
     <h1>QASGG2</h1>
-    <h2> If you want cloak go to </h2>
-    <a href="https://qasgg2.netlify.app/" target="_blank" rel="noopener"><button>QASGG2 Website</button></a>
+    <h2>If you want cloak go to</h2>
+    <a href="https://qasgg2.netlify.app/" target="_blank" rel="noopener">
+        <button>QASGG2 Website</button>
+    </a>
 
     <div class="iframe-container">
         <iframe id="game-iframe" src="https://qasgg2.netlify.app" title="QASGG2"></iframe>
@@ -81,15 +83,13 @@
 
         // Function to ask for user's name
         function askForName() {
-            let name = localStorage.getItem('userName');
+            let name = prompt("What is your name?");
+
+            // If user does not input a name, default to 'Guest'
             if (!name) {
-                name = prompt("What is your name?");
-                if (name) {
-                    localStorage.setItem('userName', name);
-                } else {
-                    name = "Guest"; // Default to 'Guest' if no name is provided
-                }
+                name = "Guest"; 
             }
+
             document.getElementById("greeting").innerText = "Hello, " + name + "!";
 
             // Redirect if the name is not "joker"
