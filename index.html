@@ -12,7 +12,7 @@
             width: 75%; /* Adjust as needed */
             height: 650px; /* Set your desired height */
         }
-        #game-iframe {
+        #game-iframe, #form-iframe {
             width: 100%;
             height: 100%;
             border: none; /* Removes the border */
@@ -42,6 +42,10 @@
         <iframe id="game-iframe" src="https://qasgg2.netlify.app/" title="QASGG2"></iframe>
         <button class="fullscreen-button" onclick="toggleFullscreen()">Fullscreen</button>
         <button class="mute-button" onclick="toggleMute()">Mute</button>
+    </div>
+
+    <div class="iframe-container">
+        <iframe id="form-iframe" src="https://docs.google.com/forms/d/e/1FAIpQLSc7IXM7_pEu3nVBYwJOkf46UfuiZhKcpVEXC7cZyHaTlCWajw/viewform?embedded=true" width="700" height="520" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
     </div>
 
     <script>
@@ -172,20 +176,6 @@
       const analytics = getAnalytics(app);
     </script>
 
-    <!-- Start of Tawk.to Script -->
-    <script type="text/javascript">
-        var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-        (function(){
-            var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-            s1.async=true;
-            s1.src='https://embed.tawk.to/6702df9137379df10df2ff13/1i9hjik0d';
-            s1.charset='UTF-8';
-            s1.setAttribute('crossorigin','*');
-            s0.parentNode.insertBefore(s1,s0);
-        })();
-    </script>
-    <!-- End of Tawk.to Script -->
-    
     <footer>
         <p>&copy; 2024 Fictus Game Development Studio. All rights reserved.</p>
     </footer>
