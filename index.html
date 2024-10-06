@@ -45,7 +45,7 @@
     </div>
 
     <div class="iframe-container">
-        <iframe id="form-iframe" src="https://docs.google.com/forms/d/e/1FAIpQLSc7IXM7_pEu3nVBYwJOkf46UfuiZhKcpVEXC7cZyHaTlCWajw/viewform?embedded=true" width="700" height="520" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+        <iframe id="form-iframe" src="https://docs.google.com/forms/d/e/1FAIpQLSc7IXM7_pEu3nVBYwJOkf46UfuiZhKcpVEXC7cZyHaTlCWajw/viewform?embedded=true" loading="lazy">Loading…</iframe>
     </div>
 
     <script>
@@ -76,43 +76,27 @@
             const muteButton = document.querySelector('.mute-button');
 
             isMuted = !isMuted;
-            if (isMuted) {
-                iframe.contentWindow.postMessage({ action: 'mute' }, '*');
-                muteButton.innerText = "Unmute";
-            } else {
-                iframe.contentWindow.postMessage({ action: 'unmute' }, '*');
-                muteButton.innerText = "Mute";
-            }
+            iframe.contentWindow.postMessage({ action: isMuted ? 'mute' : 'unmute' }, '*');
+            muteButton.innerText = isMuted ? "Unmute" : "Mute";
         }
 
         // Function to ask for user's name
         function askForName() {
             let storedName = localStorage.getItem('userName');
 
-            // Check if username is already stored
             if (!storedName) {
-                let name = prompt("What is your name?");
-                // If user does not input a name, default to 'Guest'
-                if (!name) {
-                    name = "Guest"; 
-                }
-
-                // Store the name in localStorage if it's not "Admin_1"
+                let name = prompt("What is your name?") || "Guest";
                 if (name === "Admin_1") {
                     localStorage.setItem('userName', name);
                 }
-
                 document.getElementById("greeting").innerText = "Hello, " + name + "!";
-
-                // Redirect if the name is not "joker"
                 if (name.toLowerCase() !== "joker") {
-                    window.location.href = "https://crazygames.com"; // Redirect to crazygames.com
+                    window.location.href = "https://crazygames.com"; 
                 }
             } else {
                 document.getElementById("greeting").innerText = "Hello, " + storedName + "!";
-                // If the stored name is "joker", do nothing, else redirect
                 if (storedName.toLowerCase() !== "joker") {
-                    window.location.href = "https://crazygames.com"; // Redirect to crazygames.com
+                    window.location.href = "https://crazygames.com"; 
                 }
             }
         }
@@ -120,10 +104,10 @@
         // Call askForName on page load
         window.onload = function() {
             askForName();
-            loadGameState(); // Also load game state when the page loads
+            loadGameState();
         };
 
-        // Your game state management below...
+        // Game state management
         let gameState = {
             level: 1,
             score: 0,
@@ -145,21 +129,13 @@
                 console.log('No saved game state found.');
             }
         }
-
-        // Simulate gameplay function
-        function playGame() {
-            gameState.score += 10; // Example of what gameplay might do
-            console.log('Playing game, current score:', gameState.score);
-        }
     </script>
 
     <!-- Firebase Initialization -->
     <script type="module">
-      // Import the functions you need from the SDKs you need
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-app.js";
       import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-analytics.js";
 
-      // Your web app's Firebase configuration
       const firebaseConfig = {
         apiKey: "AIzaSyC1EsGAri7JvJuP2dfon0u_RN4A9hHeJOI",
         authDomain: "emiliogames-79bbb.firebaseapp.com",
