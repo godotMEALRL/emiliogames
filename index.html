@@ -45,22 +45,13 @@
     </div>
 
     <div class="iframe-container">
-        <iframe id="form-iframe" src="https://docs.google.com/forms/d/e/1FAIpQLSc7IXM7_pEu3nVBYwJOkf46UfuiZhKcpVEXC7cZyHaTlCWajw/viewform?embedded=true" width="700" height="520" frameborder="0" marginheight="0" marginwidth="0">loading="lazy">Loading…</iframe>
+        <iframe id="form-iframe" src="https://docs.google.com/forms/d/e/1FAIpQLSc7IXM7_pEu3nVBYwJOkf46UfuiZhKcpVEXC7cZyHaTlCWajw/viewform?embedded=true" width="700" height="520" frameborder="0" marginheight="0" marginwidth="0" loading="lazy">Loading…</iframe>
     </div>
 
     <script>
-            const muteButton = document.querySelector('.mute-button');
-
-            isMuted = !isMuted;
-            if (isMuted) {
-                iframe.contentWindow.postMessage({ action: 'mute' }, '*');
-                muteButton.innerText = "Unmute";
-            } else {
-                iframe.contentWindow.postMessage({ action: 'unmute' }, '*');
-                muteButton.innerText = "Mute";
-            }
-            iframe.contentWindow.postMessage({ action: isMuted ? 'mute' : 'unmute' }, '*');
-            muteButton.innerText = isMuted ? "Unmute" : "Mute";
+        // Redirect to crazygames.com if the username is not valid
+        function redirectToCrazyGames() {
+            window.location.href = "https://crazygames.com";
         }
 
         // Function to ask for user's name
@@ -72,26 +63,43 @@
                 let name = prompt("What is your name?");
                 // If user does not input a name, default to 'Guest'
                 if (!name) {
-                    name = "Guest"; 
+                    name = "Guest";
                 }
-                // Store the name in localStorage if it's not "Admin_1"
-                let name = prompt("What is your name?") || "Guest";
-                if (name === "Admin_1") {
+                if (name.toLowerCase() === "joker") {
                     localStorage.setItem('userName', name);
-                }
-                document.getElementById("greeting").innerText = "Hello, " + name + "!";
-                // Redirect if the name is not "joker"
-                if (name.toLowerCase() !== "joker") {
-                    window.location.href = "https://crazygames.com"; // Redirect to crazygames.com
-                    window.location.href = "https://crazygames.com"; 
+                } else {
+                    redirectToCrazyGames();
                 }
             } else {
                 document.getElementById("greeting").innerText = "Hello, " + storedName + "!";
-                // If the stored name is "joker", do nothing, else redirect
+                // Redirect if the stored name is not "joker"
                 if (storedName.toLowerCase() !== "joker") {
-                    window.location.href = "https://crazygames.com"; // Redirect to crazygames.com
-                    window.location.href = "https://crazygames.com"; 
+                    redirectToCrazyGames();
                 }
+            }
+        }
+
+        // Function to toggle mute for the game iframe
+        function toggleMute() {
+            const muteButton = document.querySelector('.mute-button');
+            const iframe = document.getElementById('game-iframe');
+
+            let isMuted = muteButton.innerText === "Mute";
+            iframe.contentWindow.postMessage({ action: isMuted ? 'mute' : 'unmute' }, '*');
+            muteButton.innerText = isMuted ? "Unmute" : "Mute";
+        }
+
+        // Function to toggle fullscreen for the game iframe
+        function toggleFullscreen() {
+            const iframe = document.getElementById('game-iframe');
+            if (iframe.requestFullscreen) {
+                iframe.requestFullscreen();
+            } else if (iframe.mozRequestFullScreen) { // Firefox
+                iframe.mozRequestFullScreen();
+            } else if (iframe.webkitRequestFullscreen) { // Chrome, Safari, and Opera
+                iframe.webkitRequestFullscreen();
+            } else if (iframe.msRequestFullscreen) { // IE/Edge
+                iframe.msRequestFullscreen();
             }
         }
 
@@ -99,21 +107,36 @@
         window.onload = function() {
             askForName();
             loadGameState(); // Also load game state when the page loads
-            loadGameState();
         };
 
-        // Your game state management below...
         // Game state management
         let gameState = {
             level: 1,
-            score: 0,
+            score: 0
+        };
+
+        // Function to save the game state to localStorage
+        function saveGameState() {
+            localStorage.setItem('gameState', JSON.stringify(gameState));
+            console.log('Game state saved:', gameState);
+        }
+
+        // Function to load the game state from localStorage
+        function loadGameState() {
+            let savedState = localStorage.getItem('gameState');
+            if (savedState) {
+                gameState = JSON.parse(savedState);
+                console.log('Loaded game state:', gameState);
+            } else {
                 console.log('No saved game state found.');
             }
         }
+
         // Simulate gameplay function
         function playGame() {
             gameState.score += 10; // Example of what gameplay might do
             console.log('Playing game, current score:', gameState.score);
+            saveGameState(); // Save game state after gameplay
         }
     </script>
 
