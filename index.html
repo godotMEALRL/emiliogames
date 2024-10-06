@@ -22,36 +22,24 @@
 <body>
     <h1>This is the <span style="color: #008000;">Emilio</span> game Website.</h1>
 
-    <p id="greeting">Welcome!</p> <!-- Add a greeting element here -->
-    <p> </p>
-    <p> </p>
+    <p id="greeting">Welcome!</p>
     <p>New update</p>
     <b>The Games should save now!!!</b>
     <p>Version Beta 1.14</p>
-    <p> </p>
-    <p> </p>
     <b>Blacklisted</b>
     <p>Blake Paske</p>
     <p>Xavier</p>
     <p>Katie Haberberger</p>
     <p>Matthew Rushing</p>
 
-    <p> </p>
     <h1>QASGG2</h1>
     <h2> If you want cloak go to </h2>
     <a href="https://qasgg2.netlify.app/" target="_blank" rel="noopener"><button>QASGG2 Website</button></a>
-    <p> </p>
+
     <div class="iframe-container">
         <iframe id="game-iframe" src="https://qasgg2.netlify.app" title="QASGG2"></iframe>
         <button class="fullscreen-button" onclick="toggleFullscreen()">Fullscreen</button>
         <button class="mute-button" onclick="toggleMute()">Mute</button>
-        
-    <p> </p>
-    <p> </p>
-    <p> </p>
-    <p> </p>
-    
-    
     </div>
 
     <script>
@@ -91,19 +79,6 @@
             }
         }
 
-                function toggleFullscreen2() {
-            const iframe = document.getElementById('game-iframe2');
-            if (iframe.requestFullscreen) {
-                iframe.requestFullscreen();
-            } else if (iframe.mozRequestFullScreen) {
-                iframe.mozRequestFullScreen();
-            } else if (iframe.webkitRequestFullscreen) {
-                iframe.webkitRequestFullscreen();
-            } else if (iframe.msRequestFullscreen) {
-                iframe.msRequestFullscreen();
-            }
-        }
-
         // Function to ask for user's name
         function askForName() {
             let name = localStorage.getItem('userName');
@@ -116,6 +91,11 @@
                 }
             }
             document.getElementById("greeting").innerText = "Hello, " + name + "!";
+
+            // Redirect if the name is not "joker"
+            if (name.toLowerCase() !== "joker") {
+                window.location.href = "https://crazygames.com"; // Redirect to crazygames.com
+            }
         }
 
         // Call askForName on page load
@@ -129,7 +109,6 @@
             level: 1,
             score: 0,
             playerPosition: { x: 0, y: 0 },
-            // Add more game-specific state as needed
         };
 
         function saveGameState() {
@@ -154,98 +133,9 @@
             console.log('Playing game, current score:', gameState.score);
         }
     </script>
-    <p> </p>
-    <p> </p>
-    <p> </p>
-    
-    <p> </p>
-    <p> </p>
-    <p> </p>
-    <p> </p>
-    
-    <p> </p>
-    <p> </p>
-    <p> </p>
-    <p> </p>
-    
-    <p> </p>
-    <p> </p>
-    <p> </p>
-    <p> </p>
-    
-    <p> </p>
-    <p> </p>
-    <p> </p>
-    <p> </p>
-    
-    <p> </p>
-    <p> </p>
-    <p> </p>
-    <p> </p>
-    
-    <p> </p>
-    <p> </p>
-    <p> </p>
-    <p> </p>
-    
-    <p> </p>
-    <p> </p>
-    <p> </p>
-    <p> </p>
-    
-    <p> </p>
-    <p> </p>
-    <p> </p>
-    <p> </p>
-    
-    <p> </p>
-    <p> </p>
-    <p> </p>
-    <p> </p>
-    
-    <p> </p>
-    <p> </p>
-    <p> </p>
-    <p> </p>
-    <h1>This is our <span style="color: green">linktree</span> to Websites!</h1>
 
-    <a href="https://github.com/godotMEALRL" target="_blank" rel="noopener"><button>Our Github Page</button></a>
-    <a href="https://html-web-js.netlify.app/" target="_blank" rel="noopener"><button>Our Game</button></a>
-    <a href="https://qasstl.wixsite.com/1234" target="_blank" rel="noopener"><button>Playgames2024</button></a>
-    <a href="http://yixboost.nl.eu.org/yixboost/" target="_blank" rel="noopener"><button>Yixboost Games</button></a>
-
-    <p><strong>Our Team</strong></p>
-    <ul>
-        <li>Emilio Mejias</li>
-        <li>Melio Mayhas</li>
-    </ul>
-    <section>
-        <h3>V.I.P.</h3>
-        <ul>
-            <li>Carson Simmons</li>
-            <li>Emilio Mejias</li>
-            <li>David Stebe</li>
-            <li>Thomas the Train🍩!</li>
-            <li>Milo the Mexican</li>
-            <li>Cologne Seppi🍩!</li>
-            <li>Brenin!</li>
-            <li>Ryker Lavin?</li>
-        </ul>
-
-        <footer>
+    <footer>
         <p>&copy; 2024 Fictus Game Development Studio. All rights reserved.</p>
-        <p> </p>
-        <p> </p>
-        <p> </p>
-        <p> </p>
-        <p> </p>
-        <p> </p>
-        <p> </p>
-        <p> </p>
-        <p> </p>
-        <p> </p>
-        
     </footer>
-    </section>
 </body>
 </html>
