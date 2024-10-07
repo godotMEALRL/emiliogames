@@ -57,36 +57,36 @@
         // Function to ask for user's name
         function askForName() {
             let storedName = localStorage.getItem('userName');
+            const validUsernames = [
+                "charlotte", "katie", "lauryn", "titan",
+                "sophia", "cameron", "arabella", "sydney",
+                "august", "paxton", "jonathan", "blake",
+                "lily", "brady", "matthew", "grant",
+                "carter", "peyton", "julia", "marlena",
+                "joshua", "tate", "emily",
+                "jillian", "waylynn", "emma", "samuel",
+                "hailey", "brenin", "ryker", "ethan",
+                "addison", "john", "leah", "ellie",
+                "johnathan", "colin", "katherine", "thomas",
+                "carson", "jack", "ella", "matthew",
+                "olivia", "zoey", "jackson"
+            ];
 
             // Check if username is already stored
             if (!storedName) {
-                let name = prompt("What is your name?");
-                // If user does not input a name, default to 'Guest'
-                if (!name) {
-                    name = "Guest";
-                }
-                if (name.toLowerCase() === "joker") {
-                    localStorage.setItem('userName', name);
-                } else {
-                let name = prompt("Enter your username (must be a number between 0 and 1000):");
-                
-                // If user doesn't input a valid name, redirect them
-                if (isNaN(name) || name < 0 || name > 1000) {
-                    redirectToCrazyGames();
-                } else {
-                    localStorage.setItem('userName', name);
-                    document.getElementById("greeting").innerText = "Hello, User " + name + "!";
-                }
+                let name;
+                do {
+                    name = prompt("Enter your username (valid usernames: " + validUsernames.join(", ") + "):");
+                    // If user does not input a name, default to 'Guest'
+                    if (!name) {
+                        name = "Guest"; // Optional: handle case where user cancels
+                    }
+                } while (!validUsernames.includes(name.toLowerCase())); // Loop until a valid username is entered
+
+                localStorage.setItem('userName', name);
+                document.getElementById("greeting").innerText = "Hello, " + name + "!";
             } else {
                 document.getElementById("greeting").innerText = "Hello, " + storedName + "!";
-                // Redirect if the stored name is not "joker"
-                if (storedName.toLowerCase() !== "joker") {
-                // If the stored name is not valid, redirect
-                if (isNaN(storedName) || storedName < 0 || storedName > 1000) {
-                    redirectToCrazyGames();
-                } else {
-                    document.getElementById("greeting").innerText = "Hello, User " + storedName + "!";
-                }
             }
         }
 
@@ -149,6 +149,11 @@
             console.log('Playing game, current score:', gameState.score);
             saveGameState(); // Save game state after gameplay
         }
+    </script>
+
+    <!-- Chatango Chat Script -->
+    <script id="cid0020000389255110774" data-cfasync="false" async src="//st.chatango.com/js/gz/emb.js" style="width: 550px;height: 500px;">
+        {"handle":"qaschat","arch":"js","styles":{"a":"0084ef","b":9,"c":"FFFFFF","d":"FFFFFF","f":9,"i":9,"k":"0084ef","l":"0084ef","m":"0084ef","n":"FFFFFF","o":9,"p":"10","q":"0084ef","r":9,"surl":0,"cnrs":"0.35"}}
     </script>
 
     <footer>
