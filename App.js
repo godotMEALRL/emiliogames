@@ -1,48 +1,9 @@
-// Import StreamChat
-import { StreamChat } from 'stream-chat';
-
-// Instantiate your stream client using the API key and secret
-const serverClient = StreamChat.getInstance('6hevtpzamvgu', 'ed8cy58taky8tju6jmmt7nd68zhfkxccjdwebq9qggdskyzyhbsq594xdpxn3gs6');
-
-// Initialize the chat
-let userId = ''; // Variable to store the user ID
-let channel; // Variable to store the chat channel
-
-// Function to send a message
-async function sendMessage(message) {
-    if (message && channel) {
-        await channel.sendMessage({
-            text: message,
-            user: { id: userId }, // Send the user ID with the message
-        });
-        displayMessage(userId, message); // Display the sent message
-    }
-}
-
 // Function to initialize chat
 async function initChat() {
+    // Always prompt for the name each time the page is loaded
     userId = prompt("What is your name?").toLowerCase();
-    // If user does not input a name, default to 'Guest'
-    if (!userId) {
-        userId = "guest"; 
-    }
 
     // Validate the username
-    const validUsernames = [
-        "charlotte", "katie", "lauryn", "titan",
-        "sophia", "cameron", "arabella", "sydney",
-        "august", "paxton", "jonathan", "blake",
-        "lily", "brady", "matthew", "grant",
-        "carter", "peyton", "julia", "marlena",
-        "joshua", "tate", "emily",
-        "jillian", "waylynn", "emma", "samuel",
-        "hailey", "brenin", "ryker", "ethan",
-        "addison", "john", "leah", "ellie",
-        "johnathan", "colin", "katherine", "thomas",
-        "carson", "jack", "ella", "matthew",
-        "olivia", "zoey", "jackson"
-    ];
-
     if (!validUsernames.includes(userId)) {
         alert("Your username is not valid. Please refresh the page and enter a valid username.");
         window.location.href = "https://crazygames.com"; // Redirect to crazygames.com
@@ -58,34 +19,46 @@ async function initChat() {
     channel = serverClient.channel('messaging', 'general', {
         name: 'General Chat',
     });
+
+    // Create the channel if it doesn't exist
     await channel.create();
-    await channel.watch(); // Start listening to messages
+    
+    // Start watching the channel
+    await channel.watch();
 
     // Listen for new messages
     channel.on('message.new', (event) => {
-        displayMessage(event.message.user.id, event.message.text);
+        const chatMessages = document.getElementById('chat-messages');
+        chatMessages.innerHTML += `<div>${event.message.user.id}: ${event.message.text}</div>`;
+        chatMessages.scrollTop = chatMessages.scrollHeight; // Scroll to bottom
     });
-
-    // Greet the user
-    document.getElementById("greeting").innerText = "Hello, " + userId + "!";
-}
-
-// Function to display messages in the chat
-function displayMessage(user, message) {
-    const chatMessages = document.getElementById('chat-messages');
-    chatMessages.innerHTML += `<div>${user}: ${message}</div>`;
-    chatMessages.scrollTop = chatMessages.scrollHeight; // Scroll to bottom
 }
 
 // Call initChat on page load
 window.onload = function() {
-    initChat(); // Always ask for the user's name and initialize chat
+    initChat(); // Get the user's name and initialize chat
 };
 
-// Function to send message from the input
-function sendMessageFromInput() {
+// Function to send a message
+async function sendMessage() {
     const messageInput = document.getElementById('chat-input');
     const message = messageInput.value;
-    sendMessage(message);
-    messageInput.value = ''; // Clear the input after sending
+
+    if (message && channel) {
+        try {
+            await channel.sendMessage({
+                text: message,
+                user: { id: userId }, // Send the user ID with the message
+            });
+
+            // Display message in the chat messages div
+            const chatMessages = document.getElementById('chat-messages');
+            chatMessages.innerHTML += `<div>${userId}: ${message}</div>`;
+            messageInput.value = ''; // Clear the input
+            chatMessages.scrollTop = chatMessages.scrollHeight; // Scroll to bottom
+        } catch (error) {
+            console.error("Error sending message: ", error);
+            alert("There was an error sending your message. Please try again.");
+        }
+    }
 }
