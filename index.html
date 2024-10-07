@@ -55,40 +55,41 @@
         }
 
         // Function to ask for user's name
-        function askForName() {
-            let storedName = localStorage.getItem('userName');
-            const validUsernames = [
-                "charlotte", "katie", "lauryn", "titan",
-                "sophia", "cameron", "arabella", "sydney",
-                "august", "paxton", "jonathan", "blake",
-                "lily", "brady", "matthew", "grant",
-                "carter", "peyton", "julia", "marlena",
-                "joshua", "tate", "emily",
-                "jillian", "waylynn", "emma", "samuel",
-                "hailey", "brenin", "ryker", "ethan",
-                "addison", "john", "leah", "ellie",
-                "johnathan", "colin", "katherine", "thomas",
-                "carson", "jack", "ella", "matthew",
-                "olivia", "zoey", "jackson"
-            ];
-
-            // Check if username is already stored
-            if (!storedName) {
-                let name;
-                do {
-                    name = prompt("Enter your username (valid usernames: " + validUsernames.join(", ") + "):");
-                    // If user does not input a name, default to 'Guest'
-                    if (!name) {
-                        name = "Guest"; // Optional: handle case where user cancels
-                    }
-                } while (!validUsernames.includes(name.toLowerCase())); // Loop until a valid username is entered
-
-                localStorage.setItem('userName', name);
-                document.getElementById("greeting").innerText = "Hello, " + name + "!";
-            } else {
-                document.getElementById("greeting").innerText = "Hello, " + storedName + "!";
-            }
+    function askForName() {
+        let storedName = localStorage.getItem('userName');
+        const validUsernames = [
+            "charlotte", "katie", "lauryn", "titan",
+            "sophia", "cameron", "arabella", "sydney",
+            "august", "paxton", "jonathan", "blake",
+            "lily", "brady", "matthew", "grant",
+            "carter", "peyton", "julia", "marlena",
+            "joshua", "tate", "emily",
+            "jillian", "waylynn", "emma", "samuel",
+            "hailey", "brenin", "ryker", "ethan",
+            "addison", "john", "leah", "ellie",
+            "johnathan", "colin", "katherine", "thomas",
+            "carson", "jack", "ella", "matthew",
+            "olivia", "zoey", "jackson"
+        ];
+    
+        // Check if username is already stored
+        if (!storedName) {
+            let name;
+            do {
+                name = prompt("Enter your username:");
+                // If user does not input a name, default to 'Guest'
+                if (!name) {
+                    name = "Guest"; // Optional: handle case where user cancels
+                }
+            } while (!validUsernames.includes(name.toLowerCase())); // Loop until a valid username is entered
+    
+            localStorage.setItem('userName', name);
+            document.getElementById("greeting").innerText = "Hello, " + name + "!";
+        } else {
+            document.getElementById("greeting").innerText = "Hello, " + storedName + "!";
         }
+    }
+
 
         // Function to toggle mute for the game iframe
         function toggleMute() {
@@ -152,8 +153,7 @@
     </script>
 
     <!-- Chatango Chat Script -->
-    <script id="cid0020000389257181091" data-cfasync="false" async src="//st.chatango.com/js/gz/emb.js" style="width: 650px;height: 550px;">{"handle":"qaschat","arch":"js","styles":{"a":"0084ef","b":8,"c":"FFFFFF","d":"FFFFFF","f":8,"i":8,"k":"0084ef","l":"0084ef","m":"0084ef","n":"FFFFFF","o":8,"p":"10","q":"0084ef","r":8,"cnrs":"0.35","fwtickm":1}}</script>
-    </script>
+    <script id="cid0020000389257549614" data-cfasync="false" async src="//st.chatango.com/js/gz/emb.js" style="width: 650px;height: 550px;">{"handle":"qaschat","arch":"js","styles":{"a":"330099","b":100,"c":"FFFFFF","d":"FFFFFF","k":"330099","l":"330099","m":"330099","n":"FFFFFF","p":"10","q":"330099","r":100,"cnrs":"0.35","fwtickm":1}}</script>
     
     <footer>
         <p>&copy; 2024 Fictus Game Development Studio. All rights reserved.</p>
