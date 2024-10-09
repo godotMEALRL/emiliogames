@@ -34,14 +34,13 @@
     <h2>They took old site down</h2>
     <p id="greeting">Welcome!</p>
     <p>New update</p>
-    <p>Version Beta 1.77</p>
+    <p>Version Beta 1.78</p>
 
     <h1>QASGG2</h1>
-    <h2>If you want cloak go to</h2>
-    <a href="https://monkeygg2.github.io/" target="_blank" rel="noopener">
-        <button>QASGG2 Website</button>
+    <h2>Click Here!!!!</h2>
+    <a <button class="fullscreen-button" onclick="toggleFullscreen()">Full Balls</button>
     </a>
-    
+
     <div class="iframe-container">
         <iframe id="game-iframe" src="https://monkeygg2.github.io/" title="QASGG2"></iframe>
         <button class="fullscreen-button" onclick="toggleFullscreen()">Full Screen</button>
@@ -58,7 +57,7 @@
         function askForName() {
             let storedName = localStorage.getItem('userName');
             const validUsernames = ["joker", "sigma"];
-    
+
             if (!storedName) {
                 let name;
                 do {
@@ -67,7 +66,7 @@
                         name = "Guest"; // Handle cancel case
                     }
                 } while (!validUsernames.includes(name.toLowerCase())); 
-    
+
                 localStorage.setItem('userName', name);
                 document.getElementById("greeting").innerText = "Hello, " + name + "!";
             } else {
@@ -138,8 +137,7 @@
         function saveIframeState() {
             let iframe = document.querySelector("iframe[src='https://browser.rammerhead.org/']");
             if (iframe) {
-                // Try to send a postMessage to the iframe to get its current state
-                iframe.contentWindow.postMessage({ action: 'getState' }, '*');
+                sessionStorage.setItem('rammerheadState', iframe.src);
             }
         }
 
@@ -153,16 +151,6 @@
             }
         }
 
-        // Listen for messages from the iframe
-        window.addEventListener('message', (event) => {
-            if (event.origin === "https://browser.rammerhead.org") {
-                if (event.data.action === 'state') {
-                    sessionStorage.setItem('rammerheadState', event.data.state);
-                    console.log('Saved iframe state:', event.data.state);
-                }
-            }
-        });
-
         // Simulate gameplay function
         function playGame() {
             gameState.score += 10; // Example of gameplay
@@ -172,18 +160,9 @@
     </script>
 
 <div> 
-    <p> </p>
-    <p> </p>
-    <p> </p>
     <iframe src="https://browser.rammerhead.org/" style="height: 650px; width: 65%"></iframe>
-    <p> </p>
-    <p> </p>
     <iframe src="https://emiliogames.whereby.com/emiliogames3c63d44a-2469-4005-8c3b-a335aaa7035a" allow="camera; microphone; fullscreen; speaker; display-capture; compute-pressure" style="height: 650px; width: 40%"></iframe>   
     <script id="cid0020000389257549614" data-cfasync="false" async src="//st.chatango.com/js/gz/emb.js" style="width: 750px;height: 650px;">{"handle":"qaschat","arch":"js","styles":{"a":"330099","b":100,"c":"FFFFFF","d":"FFFFFF","k":"330099","l":"330099","m":"330099","n":"FFFFFF","p":"10","q":"330099","r":100,"cnrs":"0.35","fwtickm":1}}</script>
 </div>
 
     <footer>
-        <p>&copy; 2024 Fictus Game Development Studio. All rights reserved.</p>
-    </footer>
-</body>
-</html>
