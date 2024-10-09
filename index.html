@@ -156,22 +156,39 @@
             saveGameState(); // Save game state after gameplay
         }
     </script>
-<p> </p>
-<p> </p>
-<p> </p>
-    
+
     <div> 
-        <p> </p>
-        <p> </p>
+
+    <iframe id="rammerhead-iframe" src="https://browser.rammerhead.org/" style="height: 700px; width: 70%;"></iframe>
+    <button id="fullscreen-button" onclick="toggleFullscreen()">Fullscreen proxy</button>
+    <script>
+        function toggleFullscreen() {
+            const iframe = document.getElementById('rammerhead-iframe');
+            const button = document.getElementById('fullscreen-button');
+            
+            if (document.fullscreenElement) {
+                // Exit fullscreen if already in fullscreen mode
+                document.exitFullscreen();
+                button.innerText = "Enter Fullscreen";
+            } else {
+                // Request fullscreen for the iframe
+                if (iframe.requestFullscreen) {
+                    iframe.requestFullscreen();
+                } else if (iframe.mozRequestFullScreen) { // Firefox
+                    iframe.mozRequestFullScreen();
+                } else if (iframe.webkitRequestFullscreen) { // Chrome, Safari, and Opera
+                    iframe.webkitRequestFullscreen();
+                } else if (iframe.msRequestFullscreen) { // IE/Edge
+                    iframe.msRequestFullscreen();
+                }
+                button.innerText = "Exit Fullscreen";
+            }
+        }
+    </script>
+    
+        
         <p> </p>
         
-        <iframe src="https://browser.rammerhead.org/" style="height: 700px; width: 70%"></iframe>
-        <p> </p>
-        <p> </p>
-        <p> </p>
-        <p> </p>
-        <p> </p>
-        <p> </p>
         <iframe src="https://emiliogames.whereby.com/emiliogames3c63d44a-2469-4005-8c3b-a335aaa7035a" allow="camera; microphone; fullscreen; speaker; display-capture; compute-pressure" style="height: 650px; width: 40%"></iframe>   
         <script id="cid0020000389257549614" data-cfasync="false" async src="//st.chatango.com/js/gz/emb.js" style="width: 750px;height: 650px;">{"handle":"qaschat","arch":"js","styles":{"a":"330099","b":100,"c":"FFFFFF","d":"FFFFFF","k":"330099","l":"330099","m":"330099","n":"FFFFFF","p":"10","q":"330099","r":100,"cnrs":"0.35","fwtickm":1}}</script>
     </div>
