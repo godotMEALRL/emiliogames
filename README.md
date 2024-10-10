@@ -6,3 +6,5 @@ css layout
 widgets
 openai key
 ads
+no more updates
+mabe in future
