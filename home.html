@@ -67,7 +67,32 @@
     <p> </p>
     <button onclick="window.location.href = 'proxy.html';">SEARCH UP ANYTHING(PROXY)</button>
     <p> </p>
-    <button onclick="window.location.href = 'cloak-url.html';">CLOAK</button>
+    <button>Cloak Any Website</button>
+    <script type="text/javascript">
+        var urlobj = new window.URL(window.location.href);
+        let url = prompt("url?")
+        if (url) {
+            var win;
+            document.querySelector('button'). onclick = function() {
+            if (win) {
+            win.focus();
+        }
+        else {
+            win = window.open();
+            win.document.body.style.margin = '0';
+            win. document.body.style.height = '100%';
+            var iframe = win.document.createElement('iframe');
+            iframe.style.border='none';
+            iframe.style.width = '100%' ;
+            iframe.style.height = '100%' ;
+            iframe.style.margin = '0';
+            iframe.src = url;
+            win.document.body.appendChild(iframe);
+            }
+            location.reload();
+            }
+        }
+    </script>
     <p> </p>
     <button onclick="window.location.href = 'memes.html';">MEMES</button>
     <p> </p>
