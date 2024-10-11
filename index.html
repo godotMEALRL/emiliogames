@@ -30,5 +30,31 @@
             }
         }
     </script>
+    <script> // Redirect to crazygames.com if the username is not valid
+        function redirectToCrazyGames() {
+            window.location.href = "https://crazygames.com";
+        }
+
+        // Function to ask for user's name
+        function askForName() {
+            let storedName = localStorage.getItem('userName');
+            const validUsernames = ["noaura", "sigma", "321","jogjim", "secretcode"];
+
+            if (!storedName) {
+                let name;
+                do {
+                    name = prompt("Enter your name as one of the secret passcodes:");
+                    if (!name) {
+                        name = redirectToCrazyGames; // Handle cancel case
+                    }
+                } while (!validUsernames.includes(name.toLowerCase())); 
+
+                localStorage.setItem('userName', name);
+                document.getElementById("greeting").innerText = "Hello, " + name + "!";
+            } else {
+                document.getElementById("greeting").innerText = "Hello, " + storedName + "!";
+            }
+        }
+    </script>
 </body>
 </html>
