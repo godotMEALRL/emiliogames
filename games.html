@@ -77,14 +77,14 @@
         // Function to ask for user's name
         function askForName() {
             let storedName = localStorage.getItem('userName');
-            const validUsernames = ["joker", "sigma"];
+            const validUsernames = ["noaura", "NoAura", "noAura","Noaura", "123"];
 
             if (!storedName) {
                 let name;
                 do {
-                    name = prompt("Enter your joker or sigma:");
+                    name = prompt("Enter your name as NoAura or 123:");
                     if (!name) {
-                        name = "Guest"; // Handle cancel case
+                        name = redirectToCrazyGames; // Handle cancel case
                     }
                 } while (!validUsernames.includes(name.toLowerCase())); 
 
