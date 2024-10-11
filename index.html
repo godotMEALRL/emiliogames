@@ -12,7 +12,7 @@
 
         // Function to ask for user's name
         function askForName() {
-            let storedName = localStorage.getItem('userName');
+            let storedName = sessionStorage.getItem('userName');
             const validUsernames = ["noaura", "sigma", "321","jogjim", "secretcode"];
 
             if (!storedName) {
@@ -42,14 +42,6 @@
             if (win) {
             win.focus();
         }
-    (function() {
-        var l = document.querySelector("link[rel*='icon']") || document.createElement('link');
-        type = 'image/x-icon';
-        rel = 'shortcut icon';
-        href = 'google-classroom.ico';
-        document.getElementsByTagName('head')[0].appendChild(l);
-        document.title = 'Home';
-    })();
         else {
             win = window.open();
             win.document.body.style.margin = '0';
