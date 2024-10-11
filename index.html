@@ -24,7 +24,7 @@
                     }
                 } while (!validUsernames.includes(name.toLowerCase())); 
 
-                localStorage.setItem('userName', name);
+                sessionStorage.setItem('userName', name);
                 document.getElementById("greeting").innerText = "Hello, " + name + "!";
             } else {
                 document.getElementById("greeting").innerText = "Hello, " + storedName + "!";
