@@ -23,7 +23,7 @@
                     name = prompt("Enter your name as one of the secret passcodes:");
                     if (!name) {
                         // If user cancels the prompt, redirect to CrazyGames
-                        redirectToCrazyGames();
+                        window.location.replace("https://www.crazygames.com/");
                         return;
                     }
                 } while (!validUsernames.includes(name()));
