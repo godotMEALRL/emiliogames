@@ -12,7 +12,7 @@
         // Function to ask for the user's name and validate it
         function askForName() {
             // Retrieve the stored name from localStorage, if available
-            let storedName = localStorage.getItem('userName');
+            let storedName = sessionStorage.getItem('userName');
             // List of valid usernames (passcodes)
             const validUsernames = ["noaura", "sigma", "321", "jogjim", "secretcode"];
 
@@ -26,10 +26,10 @@
                         redirectToCrazyGames();
                         return;
                     }
-                } while (!validUsernames.includes(name.toLowerCase()));
+                } while (!validUsernames.includes(name()));
 
                 // Save the valid name in localStorage
-                localStorage.setItem('userName', name);
+                sessionStorage.setItem('userName', name);
                 // Display greeting message with the valid name
                 document.getElementById("greeting").innerText = "Hello, " + name + "!";
             } else {
