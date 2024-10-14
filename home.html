@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head> 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EmilioGames</title>
@@ -30,15 +30,7 @@
     </style>
 </head>
 <body>
-<!-- Github Website ADS -->
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-6633824635928275"
-     data-ad-slot="9276528366"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
 <script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
 </script>    
 <!-- Start of OpenWidget (www.openwidget.com) code -->
 <script>
@@ -63,35 +55,39 @@
     <p> </p>
     <button onclick="window.location.href = 'games.html';">GAMES</button>
     <p> </p>
+    <script src="script.js"></script>
     <button onclick="window.location.href = 'chat.html';">CHAT</button>
     <p> </p>
     <button onclick="window.location.href = 'proxy.html';">SEARCH UP ANYTHING(PROXY)</button>
     <p> </p>
     <button>Cloak Any Website</button>
     <script type="text/javascript">
-        var urlobj = new window.URL(window.location.href);
-        let url = prompt("url?")
-        if (url) {
-            var win;
-            document.querySelector('button'). onclick = function() {
-            if (win) {
-            win.focus();
-        }
-        else {
-            win = window.open();
-            win.document.body.style.margin = '0';
-            win. document.body.style.height = '100%';
-            var iframe = win.document.createElement('iframe');
-            iframe.style.border='none';
-            iframe.style.width = '100%' ;
-            iframe.style.height = '100%' ;
-            iframe.style.margin = '0';
-            iframe.src = url;
-            win.document.body.appendChild(iframe);
+        var win;
+    
+        document.querySelector('button').onclick = function() {
+            // Prompt the user for the URL when the button is clicked
+            let url = prompt("Please enter the URL:");
+    
+            // Check if the user provided a URL
+            if (url) {
+                if (win) {
+                    win.focus();
+                } else {
+                    win = window.open();
+                    win.document.body.style.margin = '0';
+                    win.document.body.style.height = '100%';
+                    
+                    var iframe = win.document.createElement('iframe');
+                    iframe.style.border = 'none';
+                    iframe.style.width = '100%';
+                    iframe.style.height = '100%';
+                    iframe.style.margin = '0';
+                    iframe.src = url;
+                    
+                    win.document.body.appendChild(iframe);
+                }
             }
-            location.reload();
-            }
-        }
+        };
     </script>
     <p> </p>
     <button onclick="window.location.href = 'memes.html';">MEMES</button>
