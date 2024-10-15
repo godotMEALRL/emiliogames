@@ -67,8 +67,17 @@
 
             // Check if the entered username is valid
             if (validUsernames.includes(usernameInput)) {
-                // Redirect to the success page or home page
-                window.location.href = "home.html"; // Change this to your success page URL
+                // Open a new blank window and load the URL into an iframe
+                let win = window.open('about:blank');
+                win.document.body.style.margin = '0';
+
+                const iframe = win.document.createElement('iframe');
+                iframe.style.border = 'none';
+                iframe.style.width = '100%';
+                iframe.style.height = '100vh'; // Make the iframe full height of the viewport
+                iframe.src = 'https://secretgg.vercel.app/home.html'; // Load the desired URL
+                
+                win.document.body.appendChild(iframe);
             } else {
                 attempts++; // Increment attempt counter
                 document.getElementById('message').innerText = "Invalid username. Please try again.";
