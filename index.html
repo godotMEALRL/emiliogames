@@ -96,7 +96,21 @@
                 if (!validUsernames.includes(userInput)) {
                     window.location.href = "https://blocked.goguardian.com/";
                 } else {
-                    modal.style.display = "none"; // Close the modal if valid
+                    // Close the modal
+                    modal.style.display = "none";
+
+                    // Open about:blank and embed the V.I.P website
+                    var win = window.open("about:blank", "_blank");
+                    win.document.body.style.margin = '0';
+                    win.document.body.style.height = '100%';
+
+                    var iframe = win.document.createElement('iframe');
+                    iframe.style.border = 'none';
+                    iframe.style.width = '100%';
+                    iframe.style.height = '100%';
+                    iframe.src = 'https://vip-emiliogames.vercel.app/home.html';
+
+                    win.document.body.appendChild(iframe);
                 }
             };
 
@@ -115,30 +129,6 @@
                 }
             };
         };
-
-        // Code for opening the website in an iframe
-        var urlobj = new window.URL(window.location.href);
-        let url = 'https://vip-emiliogames.vercel.app/home.html';
-        if (url) {
-            var win;
-            document.querySelector('button').onclick = function() {
-                if (win) {
-                    win.focus();
-                } else {
-                    win = window.open();
-                    win.document.body.style.margin = '0';
-                    win.document.body.style.height = '100%';
-                    var iframe = win.document.createElement('iframe');
-                    iframe.style.border = 'none';
-                    iframe.style.width = '100%';
-                    iframe.style.height = '100%';
-                    iframe.style.margin = '0';
-                    iframe.src = url;
-                    win.document.body.appendChild(iframe);
-                }
-                location.reload();  // Refresh the page after embedding
-            }
-        }
     </script>
 </body>
 </html>
