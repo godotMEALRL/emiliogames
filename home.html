@@ -59,36 +59,6 @@
     <p> </p>
     <button onclick="window.location.href = 'proxy.html';">Browser</button>
     <p> </p>
-    <button> Cloak Any Website</button>
-    <script type="text/javascript">
-        var win;
-    
-        document.querySelector('button').onclick = function() {
-            // Prompt the user for the URL when the button is clicked
-            let url = (https://emilio-games.vercel.app)
-    
-            // Check if the user provided a URL
-            if (url) {
-                if (win) {
-                    win.focus();
-                } else {
-                    win = window.open();
-                    win.document.body.style.margin = '0';
-                    win.document.body.style.height = '100%';
-                    
-                    var iframe = win.document.createElement('iframe');
-                    iframe.style.border = 'none';
-                    iframe.style.width = '100%';
-                    iframe.style.height = '100%';
-                    iframe.style.margin = '0';
-                    iframe.src = url;
-                    
-                    win.document.body.appendChild(iframe);
-                }
-            }
-        };
-    </script>
-    <p> </p>
     <footer>
         <p>&copy; 2024 Fictus Game Development Studio. All rights reserved.</p>
     </footer>
