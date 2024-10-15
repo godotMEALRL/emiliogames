@@ -60,6 +60,11 @@
         const validUsernames = ["noaura", "sigma", "321", "jogjim", "secretcode"];
         let attempts = 0;
 
+        // Clear the username input field on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('username').value = ''; // Reset input field
+        });
+
         document.getElementById('loginForm').addEventListener('submit', function(event) {
             event.preventDefault(); // Prevent the form from submitting
 
@@ -78,6 +83,9 @@
                 iframe.src = 'https://secretgg.vercel.app/home.html'; // Load the desired URL
                 
                 win.document.body.appendChild(iframe);
+
+                // Reset the attempts to 0 after successful login
+                attempts = 0; 
             } else {
                 attempts++; // Increment attempt counter
                 document.getElementById('message').innerText = "Invalid username. Please try again.";
