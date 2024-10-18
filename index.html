@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Whitelist EmilioGames</title>
+    <title>EmilioGames Cloak</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -15,30 +16,43 @@
             background-color: #f0f0f0;
             margin: 0;
         }
+
         h2 {
             margin-bottom: 20px;
         }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
     </style>
 </head>
+
 <body>
     <h2>Loading...</h2>
+    <button id="redirectButton">Go to Emilio Games</button>
+
     <script>
-        // Create a new blank document and load the URL into an iframe
-        let win = window.open('about:blank');  // Opens a blank window/tab
-        win.document.body.style.margin = '0';
+        document.getElementById('redirectButton').onclick = function () {
+            // Create a new blank document and load the URL into an iframe
+            const win = window.open('about:blank'); // Opens a blank window/tab
 
-        const iframe = win.document.createElement('iframe');
-        iframe.style.border = 'none';
-        iframe.style.width = '100%';
-        iframe.style.height = '100vh'; // Make the iframe full height of the viewport
-        iframe.src = 'https://emilio-games.vercel.app/home.html'; // Load the desired URL
+            // When the window is created, set up the iframe
+            win.onload = function () {
+                win.document.body.style.margin = '0'; // Remove default margin
+                const iframe = win.document.createElement('iframe');
+                iframe.style.border = 'none';
+                iframe.style.width = '100%';
+                iframe.style.height = '100vh'; // Make the iframe full height of the viewport
+                iframe.src = 'https://emilio-games.vercel.app/home.html'; // Load the desired URL
+                win.document.body.appendChild(iframe);
+            };
 
-        win.document.body.appendChild(iframe);
-        
-        // Automatically close the current window/tab
-        window.onload = function () {
-            window.close();
+            // Optional: You can close the current window/tab or not, depending on your requirement.
+            // window.close(); // Uncomment if you want to close the original window after clicking.
         };
     </script>
 </body>
+
 </html>
