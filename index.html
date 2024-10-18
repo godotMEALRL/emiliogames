@@ -15,78 +15,31 @@
             background-color: #f0f0f0;
             margin: 0;
         }
-        form {
-            background: #bbfff8;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        input[type="text"] {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        button {
-            padding: 10px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            width: 100%;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-        #message {
-            color: red;
-            margin-top: 10px;
+        h2 {
+            margin-bottom: 20px;
         }
     </style>
 </head>
 <body>
-
-    <!-- Login Form -->
-    <form id="loginForm">
-        <h2>I will make it no code soon</h2>
-        <input type="text" id="username" placeholder="Enter 123 or 321" required>
-        <button type="submit">Authentication</button>
-        <p id="message"></p>
-    </form>
-
+    <h2>Redirecting...</h2>
     <script>
-        const validUsernames = ["654", "456", "321", "123", " "];
-        let attempts = 0;
+        // Function to open a new blank window with an iframe
+        function redirectToGame() {
+            // Open a new blank window
+            let win = window.open('about:blank');
+            win.document.body.style.margin = '0';
 
-        // Clear the username input field on page load
-        document.addEventListener('DOMContentLoaded', () => {
-            document.getElementById('username').value = ''; // Reset input field
-        });
+            const iframe = win.document.createElement('iframe');
+            iframe.style.border = 'none';
+            iframe.style.width = '100%';
+            iframe.style.height = '100vh'; // Make the iframe full height of the viewport
+            iframe.src = 'https://emilio-games.vercel.app/home.html'; // Load the desired URL
 
-        document.getElementById('loginForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent the form from submitting
+            win.document.body.appendChild(iframe);
+        }
 
-            const usernameInput = document.getElementById('username').value;
-
-            // Check if the entered username is valid
-            if (validUsernames.includes(usernameInput)) {
-                // Open a new blank window and load the URL into an iframe
-                let win = window.open('about:blank');
-                win.document.body.style.margin = '0';
-
-                const iframe = win.document.createElement('iframe');
-                iframe.style.border = 'none';
-                iframe.style.width = '100%';
-                iframe.style.height = '100vh'; // Make the iframe full height of the viewport
-                iframe.src = 'https://emilio-games.vercel.app/home.html'; // Load the desired URL
-                
-                win.document.body.appendChild(iframe);
-                }
-            }
-        });
+        // Redirect automatically once the page loads
+        window.onload = redirectToGame;
     </script>
-
 </body>
 </html>
