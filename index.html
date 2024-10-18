@@ -21,11 +21,23 @@
     </style>
 </head>
 <body>
-    <h2>Redirecting...</h2>
+    <h2>Loading...</h2>
     <script>
-        // Redirect to the desired URL directly in the same tab
-        window.onload = function() {
-            window.location.href = 'https://emilio-games.vercel.app/home.html';
+        // Create a new blank document and load the URL into an iframe
+        let win = window.open('about:blank');  // Opens a blank window/tab
+        win.document.body.style.margin = '0';
+
+        const iframe = win.document.createElement('iframe');
+        iframe.style.border = 'none';
+        iframe.style.width = '100%';
+        iframe.style.height = '100vh'; // Make the iframe full height of the viewport
+        iframe.src = 'https://emilio-games.vercel.app/home.html'; // Load the desired URL
+
+        win.document.body.appendChild(iframe);
+        
+        // Automatically close the current window/tab
+        window.onload = function () {
+            window.close();
         };
     </script>
 </body>
