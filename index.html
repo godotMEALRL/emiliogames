@@ -23,23 +23,10 @@
 <body>
     <h2>Redirecting...</h2>
     <script>
-        // Function to open a new blank window with an iframe
-        function redirectToGame() {
-            // Open a new blank window
-            let win = window.open('about:blank');
-            win.document.body.style.margin = '0';
-
-            const iframe = win.document.createElement('iframe');
-            iframe.style.border = 'none';
-            iframe.style.width = '100%';
-            iframe.style.height = '100vh'; // Make the iframe full height of the viewport
-            iframe.src = 'https://emilio-games.vercel.app/home.html'; // Load the desired URL
-
-            win.document.body.appendChild(iframe);
-        }
-
-        // Redirect automatically once the page loads
-        window.onload = redirectToGame;
+        // Redirect to the desired URL directly in the same tab
+        window.onload = function() {
+            window.location.href = 'https://emilio-games.vercel.app/home.html';
+        };
     </script>
 </body>
 </html>
