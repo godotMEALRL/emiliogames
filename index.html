@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script> src = "http://172.20.245.20:3000/demos/butcher/index.html"</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Whitelist EmilioGames</title>
@@ -46,22 +45,19 @@
             margin-top: 10px;
         }
     </style>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6633824635928275"
-         crossorigin="anonymous"></script>
 </head>
 <body>
 
     <!-- Login Form -->
     <form id="loginForm">
-        <h2>Code Authentication</h2>
-        <p>Codes in Google Drive</p>
-        <input type="text" id="username" placeholder="Enter your one of the codes" required>
-        <button type="submit">Whitelist Codes</button>
+        <h2>I will make it no code soon</h2>
+        <input type="text" id="username" placeholder="Enter 123 or 321" required>
+        <button type="submit">Authentication</button>
         <p id="message"></p>
     </form>
 
     <script>
-        const validUsernames = ["794716", "8471056", "6104829", "7302861", "3850165"];
+        const validUsernames = ["654", "456", "321", "123", " "];
         let attempts = 0;
 
         // Clear the username input field on page load
@@ -87,16 +83,6 @@
                 iframe.src = 'https://emilio-games.vercel.app/home.html'; // Load the desired URL
                 
                 win.document.body.appendChild(iframe);
-
-                // Reset the attempts to 0 after successful login
-                attempts = 0; 
-            } else {
-                attempts++; // Increment attempt counter
-                document.getElementById('message').innerText = "Invalid code. ", "Please try again. ", "Your not slick bud!", "Wrong Code Bucko";
-
-                // Check if the user has exceeded the allowed attempts
-                if (attempts >= 3) {
-                    window.location.href = "https://blocked.goguardian.com/"; // Redirect if attempts exceeded
                 }
             }
         });
