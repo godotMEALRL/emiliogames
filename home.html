@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-<head> 
+
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EmilioGames</title>
@@ -12,48 +13,119 @@
         body {
             font-family: Arial, sans-serif;
         }
+
         h1 {
             font-family: 'Lilita One', preconnect;
         }
+
         h2 {
             font-family: 'Jockey One', preconnect;
         }
-        .iframe-container {
-            width: 65%;
-            height: 550px;
+
+        #popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 20px;
+            z-index: 1000;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
         }
-        #game-iframe, #form-iframe {
-            width: 100%;
-            height: 100%;
+
+        #exitButton {
+            background-color: #ff4d4d;
+            color: white;
             border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
         }
+
+        #toggleButton {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+        }
+
+        /* Add the rest of your styles as needed */
     </style>
 </head>
+
 <body>
-    
-    <script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="emiliolinux" data-description="Support me on Buy me a coffee!" data-message="I would greatly appreciate your support." data-color="#5F7FFF" data-position="Right" data-x_margin="18" data-y_margin="18"></script>    
-    
+    <div id="popup">
+        <h2>Notification</h2>
+        <p id="notificationMessage">Welcome! Please enable antivirus protection.</p>
+        <button id="exitButton">Exit</button>
+    </div>
+
+    <button id="toggleButton" onclick="toggleNotifications()">Enable Anti-Virus</button>
+
+    <script>
+        let notificationInterval;
+        let showNotification = false;
+
+        function showPopup(message) {
+            const popup = document.getElementById('popup');
+            const notificationMessage = document.getElementById('notificationMessage');
+            notificationMessage.innerText = message;
+            popup.style.display = 'block';
+        }
+
+        document.getElementById('exitButton').onclick = function() {
+            document.getElementById('popup').style.display = 'none';
+        };
+
+        function toggleNotifications() {
+            if (showNotification) {
+                clearInterval(notificationInterval);
+                document.getElementById('toggleButton').innerText = 'Enable Anti-Virus';
+                document.getElementById('popup').style.display = 'none';
+            } else {
+                if ("Notification" in window) {
+                    Notification.requestPermission().then(function(permission) {
+                        if (permission === "granted") {
+                            // Set notifications to show every 10 seconds initially
+                            showPopup("Antivirus notification will display shortly.");
+                            setTimeout(() => {
+                                showNotification = true;
+                                notificationInterval = setInterval(() => {
+                                    new Notification("Virus Alert!", {
+                                        body: "5 viruses detected on your Chromebook! McAfee recommends immediate action.",
+                                        icon: "https://1000logos.net/wp-content/uploads/2020/09/McAfee-Logo-500x281.png"
+                                    });
+                                    // Refresh the popup notification every 5 seconds
+                                    showPopup("5 viruses detected! Please take immediate action.");
+                                }, 5000);
+                            }, 10000); // Delay first notification by 10 seconds
+                            document.getElementById('toggleButton').innerText = 'Disable Anti-Virus';
+                        } else {
+                            alert("This browser does not support desktop notifications.");
+                        }
+                    });
+                }
+            }
+            showNotification = !showNotification; // Toggle state
+        }
+    </script>
+
     <h1>I Say <span style="color: #008000;">Goon</span></h1>
     <h2>Gabe Newell!</h2>
     <p>New update</p>
     <p>Version Beta 3.something</p>
-    <p> </p>
-    <p> </p>
     <button onclick="window.location.href = 'games.html';">GAMES</button>
-    <p> </p>
-    <script src="script.js"></script>
     <button onclick="window.location.href = 'chat.html';">CHAT</button>
-    <p> </p>
     <button onclick="window.location.href = 'proxy.html';">Browser</button>
-    <p> </p>
     <button onclick="window.location.href = 'https://test-fakevirus.vercel.app/';">Antivirus</button>
-    <p> </p>
-    <iframe src="https://discord.com/widget?id=1293614665817133086&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
-    <p> </p>
-    <script src="https://cdn.commoninja.com/sdk/latest/commonninja.js" defer></script>
-    <div class="commonninja_component pid-1169bceb-1b8d-4c1f-b4e6-860ba81f3f4a"></div>
+
+    <!-- Include other elements (like iframes) as needed here -->
+    
     <footer>
         <p>&copy; 2024 Fictus Game Development Studio. All rights reserved.</p>
     </footer>
 </body>
+
 </html>
