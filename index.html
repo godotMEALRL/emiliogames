@@ -14,51 +14,33 @@
             flex-direction: column;
             height: 100vh;
             margin: 0;
-            text-align: center;
-            position: relative; /* Set position relative for absolute positioning of iframe */
-            overflow: hidden; /* Hide overflow */
+            text-align: center; /* Center text in the body */
+            background-image: url('https://www.wvnstv.com/wp-content/uploads/sites/76/2023/02/image0-1.gif'); /* Set background image */
+            background-size: cover; /* Make the background cover the entire area */
+            background-position: center; /* Center the background image */
         }
 
         h2 {
             margin-bottom: 20px;
-            position: relative; /* Make sure text stays on top */
-            z-index: 1; /* Bring text above the iframe */
         }
 
         button {
             padding: 10px 20px;
             font-size: 16px;
             cursor: pointer;
-            margin: 5px 0;
-            position: relative; /* Ensure buttons stay above the iframe */
-            z-index: 1; /* Bring buttons above the iframe */
+            margin: 5px 0; /* Add some margin for spacing */
         }
 
         #banner {
-            margin-bottom: 75px;
-            font-size: 20px;
-            color: #fff; /* Change text color to white for visibility */
-            position: relative; /* Ensure banner stays above the iframe */
-            z-index: 1; /* Bring banner above the iframe */
-        }
-
-        /* Chatgpt in action hehe i actually barely know how to code but I know how it works */
-        #backgroundVideo {
-            position: absolute; /* Position it absolutely */
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-            z-index: 0; /* Set z-index lower so it sits behind other elements */
+            margin-bottom: 75px; /* Spacing below the banner */
+            font-size: 20px; /* Adjust font size as needed */
+            color: #333; /* Change text color to make it visible */
         }
     </style>
 </head>
 
 <body>
-    <iframe id="backgroundVideo" src="https://www.youtube.com/shorts/PaCAJKi4uUM?autoplay=1&mute=1&loop=1&playlist=PaCAJKi4uUM" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-
-    <div id="banner">OI OI OI... Backaaaa!!</div>
+    <div id="banner">OI OI OI... Backaaaa!!</div> <!-- Added text here -->
 
     <h2>Click to Cloak</h2>
 
@@ -68,16 +50,22 @@
 
     <script>
         document.getElementById('redirectButton').onclick = function () {
-            const win = window.open('about:blank');
+            // Create a new blank document and load the URL into an iframe
+            const win = window.open('about:blank'); // Opens a blank window/tab
+
+            // When the window is created, set up the iframe
             win.onload = function () {
-                win.document.body.style.margin = '0';
+                win.document.body.style.margin = '0'; // Remove default margin
                 const iframe = win.document.createElement('iframe');
                 iframe.style.border = 'none';
                 iframe.style.width = '100%';
-                iframe.style.height = '100vh';
-                iframe.src = 'https://emilio--games.vercel.app/home.html';
+                iframe.style.height = '100vh'; // Make the iframe full height of the viewport
+                iframe.src = 'https://emilio--games.vercel.app/home.html'; // Load the desired URL
                 win.document.body.appendChild(iframe);
             };
+
+            // Optional: You can close the current window/tab or not, depending on your requirement.
+            // window.close(); // Uncomment if you want to close the original window after clicking.
         };
     </script>
 </body>
