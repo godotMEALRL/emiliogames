@@ -44,8 +44,10 @@
 
     <h2>Click to Cloak</h2>
 
-    <button id="redirectButton">Go to Emilio Games</button>
-
+    <button id="redirectButton">Home</button>
+    
+    <button id="redirectButton2">Games</button>
+    
     <button onclick="window.location.href = 'contact.html';">Contact Me</button>
 
     <script>
@@ -68,6 +70,27 @@
             // window.close(); // Uncomment if you want to close the original window after clicking.
         };
     </script>
+    <script>
+    document.getElementById('redirectButton2').onclick = function () {
+        // Create a new blank document and load the URL into an iframe
+        const win = window.open('about:blank'); // Opens a blank window/tab
+
+        // When the window is created, set up the iframe
+        win.onload = function () {
+            win.document.body.style.margin = '0'; // Remove default margin
+            const iframe = win.document.createElement('iframe');
+            iframe.style.border = 'none';
+            iframe.style.width = '100%';
+            iframe.style.height = '100vh'; // Make the iframe full height of the viewport
+            iframe.src = 'https://emilio--games.vercel.app/games.html'; // Load the desired URL
+            win.document.body.appendChild(iframe);
+        };
+
+        // Optional: You can close the current window/tab or not, depending on your requirement.
+        // window.close(); // Uncomment if you want to close the original window after clicking.
+    };
+</script>
+
 </body>
 
 </html>
