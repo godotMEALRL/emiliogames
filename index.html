@@ -42,24 +42,20 @@
 <body>
     <div id="banner"></div> <!-- Added text here -->
     <h2>Click to Cloak</h2>    
-    <h1 class="title">Slate V1</h1>
-    <form method="POST" action="/service/gateway">
-      <div class="form-group">
-        <label for="url">URL</label>
-        <input type="text" id="url" name="url" placeholder="Enter URL" required>
-      </div>
-      <div class="form-group">
-        <input type="submit" value="Submit">
+	<button onclick="openGame()">Home</button>
+	<script>
+		function openGame() {
+var win = window.open()
+var url = "https://emilio--games.vercel.app/"
+var iframe = win.document.createElement('iframe')
+iframe.style.width = "100%";
+iframe.style.height = "100%";
+iframe.style.border = "none";
+iframe.src = url
+win.document.body.appendChild(iframe)
+}
+	</script>
 
-        <header>
-                 -----------------------------------
-        </header>
-
-        <script>
-    function blank(){
-      (function () {var url = document.URL; var urlObj = new window.URL(window.location.href); win = window.open(); win.document.body.style.margin = "0"; win.document.body.style.height = "100vh"; var iframe = win.document.createElement("iframe"); iframe.style.border = "none"; iframe.style.width = "100%"; iframe.style.height = "100%"; iframe.style.margin = "0"; iframe.referrerpolicy = "no-referrer"; iframe.allow = "fullscreen"; iframe.src = url.toString(); win.document.body.appendChild(iframe); var script = win.document.createElement("script"); script.src = ""; win.document.body.appendChild(script); })();
-    }
-    </script>
     <button id="redirectButton2">Games</button>
     <button onclick="window.location.href = 'contact.html';">Contact Me</button>
 
