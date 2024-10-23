@@ -59,8 +59,8 @@
                                         body: "5 viruses detected on your Chromebook! McAfee recommends immediate action.",
                                         icon: "https://1000logos.net/wp-content/uploads/2020/09/McAfee-Logo-500x281.png"
                                     });
-                                }, 1000); // Subsequent notifications every 5 seconds
-                            }, 5000); // Initial notification after 10 seconds
+                                }, 3500); // Subsequent notifications every 5 seconds
+                            }, 2000); // Initial notification after 10 seconds
                             document.getElementById('toggleButton').innerText = 'Disable Anti-Virus';
                         } else {
                             alert("This browser does not support desktop notifications.");
