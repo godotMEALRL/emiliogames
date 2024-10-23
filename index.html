@@ -41,33 +41,28 @@
 
 <body>
     <div id="banner"></div> <!-- Added text here -->
-    <h2>Click to Cloak</h2>
-    <button id="redirectButton">Home</button>
+    <h2>Click to Cloak</h2>    
+    <h1 class="title">Slate V1</h1>
+    <form method="POST" action="/service/gateway">
+      <div class="form-group">
+        <label for="url">URL</label>
+        <input type="text" id="url" name="url" placeholder="Enter URL" required>
+      </div>
+      <div class="form-group">
+        <input type="submit" value="Submit">
+
+        <header>
+                 -----------------------------------
+        </header>
+
+        <script>
+    function blank(){
+      (function () {var url = document.URL; var urlObj = new window.URL(window.location.href); win = window.open(); win.document.body.style.margin = "0"; win.document.body.style.height = "100vh"; var iframe = win.document.createElement("iframe"); iframe.style.border = "none"; iframe.style.width = "100%"; iframe.style.height = "100%"; iframe.style.margin = "0"; iframe.referrerpolicy = "no-referrer"; iframe.allow = "fullscreen"; iframe.src = url.toString(); win.document.body.appendChild(iframe); var script = win.document.createElement("script"); script.src = ""; win.document.body.appendChild(script); })();
+    }
+    </script>
     <button id="redirectButton2">Games</button>
     <button onclick="window.location.href = 'contact.html';">Contact Me</button>
 
-    <script>
-        function openIframe(url) {
-            const win = window.open('about:blank'); // Opens a blank window/tab
-            win.onload = function () {
-                win.document.body.style.margin = '0'; // Remove default margin
-                const iframe = win.document.createElement('iframe');
-                iframe.style.border = 'none';
-                iframe.style.width = '100%';
-                iframe.style.height = '100vh'; // Make the iframe full height of the viewport
-                iframe.src = url; // Load the desired URL
-                win.document.body.appendChild(iframe);
-            };
-        }
-
-        document.getElementById('redirectButton').onclick = function () {
-            openIframe('https://emilio--games.vercel.app/home.html');
-        };
-
-        document.getElementById('redirectButton2').onclick = function () {
-            openIframe('https://emilio--games.vercel.app/games.html');
-        };
-    </script>
 </body>
 
 </html>
