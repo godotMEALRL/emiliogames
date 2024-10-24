@@ -46,68 +46,68 @@
     </style>
 </head>
 <body>
+    <div id="page-reload">
     <!-- Hitwebcounter example -->
     <a href='https://www.hitwebcounter.com'>
         <img src='https://hitwebcounter.com/counter/counter.php?page=17034065&style=0001&nbdigits=5&type=page&initCount=0' title="Free Counter" alt="visitor counter"   border="0" >
     </a>
-  
-    <div id="visitor-count"></div>
-    <script>
-    // Check if there's already a visit count in localStorage
-    let visitCount = localStorage.getItem('visitCount');
+        <div id="visitor-count"></div>
+        <script>
+        // Check if there's already a visit count in localStorage
+        let visitCount = localStorage.getItem('visitCount');
 
-    // If not, set it to 1, otherwise increment it
-    if (!visitCount) {
-        visitCount = 1;
-    } else {
-        visitCount = parseInt(visitCount) + 1;
-    }
-
-    // Update localStorage
-    localStorage.setItem('visitCount', visitCount);
-
-    // Display the count
-    document.getElementById('visitor-count').innerText = `You have visited the game page ${visitCount} times.`;
-    </script>
-
-    <script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="emiliolinux" data-description="Support me on Buy me a coffee!" data-message="I would greatly appreciate your support." data-color="#5F7FFF" data-position="Right" data-x_margin="18" data-y_margin="18"></script>    
-
-    <button id="toggleButton" onclick="toggleNotifications()">Enable Anti-Virus</button>
-    <script>
-        let notificationInterval;
-        let showNotification = false;
-
-        function toggleNotifications() {
-            if (showNotification) {
-                clearInterval(notificationInterval);
-                document.getElementById('toggleButton').innerText = 'Enable Anti-Virus';
-            } else {
-                if ("Notification" in window) {
-                    Notification.requestPermission().then(function (permission) {
-                        if (permission === "granted") {
-                            // Set a timer for the first notification to appear after 10 seconds
-                            setTimeout(() => {
-                                showNotification = true;
-                                notificationInterval = setInterval(() => {
-                                    new Notification("Virus Alert!", {
-                                        body: "5 viruses detected on your Chromebook! McAfee recommends immediate action.",
-                                        icon: "https://1000logos.net/wp-content/uploads/2020/09/McAfee-Logo-500x281.png"
-                                    });
-                                }, 3500); // Subsequent notifications every 5 seconds
-                            }, 2000); // Initial notification after 10 seconds
-                            document.getElementById('toggleButton').innerText = 'Disable Anti-Virus';
-                        } else {
-                            alert("This browser does not support desktop notifications.");
-                        }
-                    });
-                }
-            }
-
-            // Toggle state
-            showNotification = !showNotification;
+        // If not, set it to 1, otherwise increment it
+        if (!visitCount) {
+            visitCount = 1;
+        } else {
+            visitCount = parseInt(visitCount) + 1;
         }
-    </script>
 
+        // Update localStorage
+        localStorage.setItem('visitCount', visitCount);
+
+        // Display the count
+        document.getElementById('visitor-count').innerText = `You have reloaded this page ${visitCount} times.`;
+        </script>
+
+        <script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="emiliolinux" data-description="Support me on Buy me a coffee!" data-message="I would greatly appreciate your support." data-color="#5F7FFF" data-position="Right" data-x_margin="18" data-y_margin="18"></script>    
+
+        <button id="toggleButton" onclick="toggleNotifications()">Enable Anti-Virus</button>
+        <script>
+            let notificationInterval;
+            let showNotification = false;
+
+            function toggleNotifications() {
+                if (showNotification) {
+                    clearInterval(notificationInterval);
+                    document.getElementById('toggleButton').innerText = 'Enable Anti-Virus';
+                } else {
+                    if ("Notification" in window) {
+                        Notification.requestPermission().then(function (permission) {
+                            if (permission === "granted") {
+                                // Set a timer for the first notification to appear after 10 seconds
+                                setTimeout(() => {
+                                    showNotification = true;
+                                    notificationInterval = setInterval(() => {
+                                        new Notification("Virus Alert!", {
+                                            body: "5 viruses detected on your Chromebook! McAfee recommends immediate action.",
+                                            icon: "https://1000logos.net/wp-content/uploads/2020/09/McAfee-Logo-500x281.png"
+                                        });
+                                    }, 3500); // Subsequent notifications every 5 seconds
+                                }, 2000); // Initial notification after 10 seconds
+                                document.getElementById('toggleButton').innerText = 'Disable Anti-Virus';
+                            } else {
+                                alert("This browser does not support desktop notifications.");
+                            }
+                        });
+                    }
+                }
+
+                // Toggle state
+                showNotification = !showNotification;
+            }
+        </script>
+    </div>
     <h1>There are <span style="color: #38d638;">More<span>Games</h1>
     <div>
         <button onclick="window.location.href = 'https://seraph.reveriestudios.online/';">Seraph</button>
