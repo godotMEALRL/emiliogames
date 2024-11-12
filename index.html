@@ -50,6 +50,12 @@
             top: 75px;
             right: 100px;
         }
+        #Poem {
+            position: fixed;
+            top: 10px;
+            right: 855px;
+            font-size: 16px;
+            cursor: pointer;
     </style>
 </head>
 
@@ -100,6 +106,21 @@
         <script src="https://cdn.commoninja.com/sdk/latest/commonninja.js" defer></script>
         <div class="commonninja_component pid-1169bceb-1b8d-4c1f-b4e6-860ba81f3f4a"></div>
     </div>
+	<div id="Poem">
+		<button onclick="openPoem()">Newest Poem</button>
+		<script>
+			function openPoem() {
+	var win = window.open()
+	var url = "love.html"
+	var iframe = win.document.createElement('iframe')
+	iframe.style.width = "100%";
+	iframe.style.height = "100%";
+	iframe.style.border = "none";
+	iframe.src = url
+	win.document.body.appendChild(iframe)
+	}
+		</script>
+	</div>
     <div id="banner"></div> <!-- Added text here -->
     <h2>Click to Cloak</h2>    
 	<button onclick="openHome()">Home</button>
