@@ -40,107 +40,23 @@
             top: 70px;
             right: 1075px;
         }
-        #anti-virus {
-            position: fixed;
-            top: 10px;
-            right: 10px;
-        }
-        #daily-emilio {
-            position: fixed;
-            top: 75px;
-            right: 100px;
-        }
-        #Poem {
-            position: fixed;
-            top: 10px;
-            right: 855px;
-            font-size: 16px;
-            cursor: pointer;
     </style>
 </head>
 
 <body>
-    <div id="daily-emilio">
-        <iframe src="https://drive.google.com/file/d/1EOP__5RPJnvLb8rbkeVqpRLuEu_JDDUL/preview"" width="350" height="480" allow="autoplay"></iframe>
-    </div>
-
         <script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="emiliolinux" data-description="Support me on Buy me a coffee!" data-message="I would greatly appreciate your support." data-color="#5F7FFF" data-position="Right" data-x_margin="18" data-y_margin="18"></script>    
-        <div id="anti-virus"> 
-            <button id="toggleButton" onclick="toggleNotifications()">Enable Anti-Virus</button>
-            <script>
-                let notificationInterval;
-                let showNotification = false;
-    
-                function toggleNotifications() {
-                    if (showNotification) {
-                        clearInterval(notificationInterval);
-                        document.getElementById('toggleButton').innerText = 'Enable Anti-Virus';
-                    } else {
-                        if ("Notification" in window) {
-                            Notification.requestPermission().then(function (permission) {
-                                if (permission === "granted") {
-                                    // Set a timer for the first notification to appear after 10 seconds
-                                    setTimeout(() => {
-                                        showNotification = true;
-                                        notificationInterval = setInterval(() => {
-                                            new Notification("Virus Alert!", {
-                                                body: "5 viruses detected on your Chromebook! McAfee recommends immediate action.",
-                                                icon: "https://1000logos.net/wp-content/uploads/2020/09/McAfee-Logo-500x281.png"
-                                            });
-                                        }, 3500); // Subsequent notifications every 5 seconds
-                                    }, 2000); // Initial notification after 10 seconds
-                                    document.getElementById('toggleButton').innerText = 'Disable Anti-Virus';
-                                } else {
-                                    alert("This browser does not support desktop notifications.");
-                                }
-                            });
-                        }
-                    }
-    
-                    // Toggle state
-                    showNotification = !showNotification;
-                }
-            </script>
         </div>    
     <div id="ninja-widget">
         <script src="https://cdn.commoninja.com/sdk/latest/commonninja.js" defer></script>
         <div class="commonninja_component pid-1169bceb-1b8d-4c1f-b4e6-860ba81f3f4a"></div>
     </div>
-	<div id="Poem">
-		<button onclick="openPoem()">Newest Poem</button>
-		<script>
-			function openPoem() {
-	var win = window.open()
-	var url = "love.html"
-	var iframe = win.document.createElement('iframe')
-	iframe.style.width = "100%";
-	iframe.style.height = "100%";
-	iframe.style.border = "none";
-	iframe.src = url
-	win.document.body.appendChild(iframe)
-	}
-		</script>
-	</div>
     <div id="banner"></div> <!-- Added text here -->
-    <h2>Click to Cloak</h2>    
-	<button onclick="openHome()">Home</button>
-	<script>
-		function openHome() {
-var win = window.open()
-var url = "home.html"
-var iframe = win.document.createElement('iframe')
-iframe.style.width = "100%";
-iframe.style.height = "100%";
-iframe.style.border = "none";
-iframe.src = url
-win.document.body.appendChild(iframe)
-}
-	</script>
-	<button onclick="openGame()">Games</button>
+
+    <button onclick="openGame()">Games</button>
 	<script>
 		function openGame() {
 var win = window.open()
-var url = "games.html"
+var url = "https://monkeygg2.github.io"
 var iframe = win.document.createElement('iframe')
 iframe.style.width = "100%";
 iframe.style.height = "100%";
@@ -149,11 +65,11 @@ iframe.src = url
 win.document.body.appendChild(iframe)
 }
 	</script>
-	<button onclick="openContact()">Contact Me</button>
+        <button onclick="openChat()">Chat</button>
 	<script>
-		function openContact() {
+		function openChat() {
 var win = window.open()
-var url = "contact.html"
+var url = "https://emilio--games.vercel.app/chat.html"
 var iframe = win.document.createElement('iframe')
 iframe.style.width = "100%";
 iframe.style.height = "100%";
@@ -162,7 +78,6 @@ iframe.src = url
 win.document.body.appendChild(iframe)
 }
 	</script>
-    <a href="https://stebe.vercel.app/">Stebe Website</a>
 </body>
 
 </html>
